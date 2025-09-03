@@ -1,0 +1,4 @@
+{
+  "logos": ["/assets/img/clients/client1.svg","/assets/img/clients/client2.svg"],
+  "integrations": ["Booking.com","Airbnb","Stripe","Paymob","Cloudbeds","Oracle Opera"]
+}

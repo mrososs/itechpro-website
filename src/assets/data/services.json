@@ -1,0 +1,44 @@
+[
+  {
+    "icon": "cpu",
+    "title": "Digital Transformation",
+    "slug": "digital-transformation",
+    "summary": "Value-driven strategy & IoT use cases for hospitality.",
+    "link": "/smart-hotels"
+  },
+  {
+    "icon": "code-2",
+    "title": "Web & App Development",
+    "slug": "web-apps",
+    "summary": "Modern web & mobile apps with clean architecture.",
+    "link": "/projects?tag=apps"
+  },
+  {
+    "icon": "cloud",
+    "title": "Data Center & Cloud",
+    "slug": "cloud",
+    "summary": "Scalable, secure, and cost-optimized cloud setups.",
+    "link": "/projects?tag=cloud"
+  },
+  {
+    "icon": "headphones",
+    "title": "Technical Support",
+    "slug": "support",
+    "summary": "24/7 proactive monitoring & SLA-backed support.",
+    "link": "/contact"
+  },
+  {
+    "icon": "shield-check",
+    "title": "Software / License",
+    "slug": "license",
+    "summary": "Verified licensing & compliance management.",
+    "link": "/projects?tag=license"
+  },
+  {
+    "icon": "megaphone",
+    "title": "Online Marketing",
+    "slug": "marketing",
+    "summary": "ROI-focused campaigns for hospitality brands.",
+    "link": "/projects?tag=marketing"
+  }
+]

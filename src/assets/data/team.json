@@ -1,0 +1,54 @@
+[
+  {
+    "slug": "mohamed-osama",
+    "name": "Mohamed Osama",
+    "role": "Senior Front-End Engineer",
+    "avatar": "/assets/img/team/mohamed.jpg",
+    "skills": ["Angular","GSAP","Tailwind","UX"],
+    "social": {
+      "linkedin": "#",
+      "github": "#",
+      "email": "mailto:team@itechpro.com"
+    },
+    "bio": "Front-end lead crafting high-performance hospitality apps."
+  },
+  {
+    "slug": "ahmed-hassan",
+    "name": "Ahmed Hassan",
+    "role": "Backend & IoT Specialist",
+    "avatar": "/assets/img/team/ahmed.jpg",
+    "skills": ["Node.js","IoT","Cloud","PMS"],
+    "social": {
+      "linkedin": "#",
+      "github": "#",
+      "email": "mailto:team@itechpro.com"
+    },
+    "bio": "Backend architect specializing in IoT integrations and PMS systems."
+  },
+  {
+    "slug": "sara-mahmoud",
+    "name": "Sara Mahmoud",
+    "role": "UI/UX Designer",
+    "avatar": "/assets/img/team/sara.jpg",
+    "skills": ["Figma","Prototyping","User Research","Accessibility"],
+    "social": {
+      "linkedin": "#",
+      "github": "#",
+      "email": "mailto:team@itechpro.com"
+    },
+    "bio": "User experience designer focused on hospitality digital products."
+  },
+  {
+    "slug": "omar-ali",
+    "name": "Omar Ali",
+    "role": "DevOps & Cloud Engineer",
+    "avatar": "/assets/img/team/omar.jpg",
+    "skills": ["AWS","Docker","Kubernetes","CI/CD"],
+    "social": {
+      "linkedin": "#",
+      "github": "#",
+      "email": "mailto:team@itechpro.com"
+    },
+    "bio": "DevOps engineer ensuring scalable and secure cloud infrastructure."
+  }
+]
