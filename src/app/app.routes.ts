@@ -45,6 +45,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'ai-agent',
+    loadComponent: () =>
+      import('./pages/ai-agent/ai-agent.component').then(
+        (m) => m.AiAgentComponent
+      ),
+  },
+  {
     path: '**',
     redirectTo: '/home',
   },

@@ -26,10 +26,10 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
       <!-- Background Elements -->
       <div class="absolute inset-0">
         <div
-          class="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl"
+          class="absolute top-20 left-10 w-72 h-72 bg-blue-primary/10 rounded-full blur-3xl"
         ></div>
         <div
-          class="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl"
+          class="absolute bottom-20 right-10 w-96 h-96 bg-green-accent/10 rounded-full blur-3xl"
         ></div>
       </div>
 
@@ -42,7 +42,7 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
           class="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight"
         >
           People who ship exceptional
-          <span class="text-primary">hospitality tech</span>
+          <span class="text-green-accent">hospitality tech</span>
         </h1>
 
         <p

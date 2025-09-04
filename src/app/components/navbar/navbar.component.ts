@@ -32,7 +32,7 @@ import {
           <div class="flex-shrink-0">
             <a
               routerLink="/home"
-              class="flex items-center space-x-2 text-white hover:text-primary transition-colors duration-200"
+              class="flex items-center space-x-2 text-white hover:text-blue-primary transition-colors duration-200"
             >
               <img
                 src="assets/img/logo.png"
@@ -47,44 +47,51 @@ import {
             <div class="ml-10 flex items-baseline space-x-8">
               <a
                 routerLink="/home"
-                routerLinkActive="text-primary active-link"
+                routerLinkActive="text-blue-primary active-link"
                 [routerLinkActiveOptions]="{ exact: true }"
-                class="nav-link text-white/80 hover:text-primary transition-all duration-200 pb-1 relative"
+                class="nav-link text-white/80 hover:text-blue-primary transition-all duration-200 pb-1 relative"
               >
                 <i class="pi pi-home mr-2"></i>Home
               </a>
               <a
                 routerLink="/smart-hotels"
-                routerLinkActive="text-primary active-link"
-                class="nav-link text-white/80 hover:text-primary transition-all duration-200 pb-1 relative"
+                routerLinkActive="text-blue-primary active-link"
+                class="nav-link text-white/80 hover:text-blue-primary transition-all duration-200 pb-1 relative"
               >
                 <i class="pi pi-building mr-2"></i>Smart Hotels
               </a>
               <a
                 routerLink="/projects"
-                routerLinkActive="text-primary active-link"
-                class="nav-link text-white/80 hover:text-primary transition-all duration-200 pb-1 relative"
+                routerLinkActive="text-blue-primary active-link"
+                class="nav-link text-white/80 hover:text-blue-primary transition-all duration-200 pb-1 relative"
               >
                 <i class="pi pi-briefcase mr-2"></i>Projects
               </a>
               <a
                 routerLink="/team"
-                routerLinkActive="text-primary active-link"
-                class="nav-link text-white/80 hover:text-primary transition-all duration-200 pb-1 relative"
+                routerLinkActive="text-blue-primary active-link"
+                class="nav-link text-white/80 hover:text-blue-primary transition-all duration-200 pb-1 relative"
               >
                 <i class="pi pi-users mr-2"></i>Team
               </a>
               <a
                 routerLink="/careers"
-                routerLinkActive="text-primary active-link"
-                class="nav-link text-white/80 hover:text-primary transition-all duration-200 pb-1 relative"
+                routerLinkActive="text-blue-primary active-link"
+                class="nav-link text-white/80 hover:text-blue-primary transition-all duration-200 pb-1 relative"
               >
                 <i class="pi pi-briefcase mr-2"></i>Careers
               </a>
               <a
+                routerLink="/ai-agent"
+                routerLinkActive="text-blue-primary active-link"
+                class="nav-link text-white/80 hover:text-blue-primary transition-all duration-200 pb-1 relative"
+              >
+                <i class="pi pi-comments mr-2"></i>AI Assistant
+              </a>
+              <a
                 routerLink="/contact"
-                routerLinkActive="text-primary active-link"
-                class="nav-link text-white/80 hover:text-primary transition-all duration-200 pb-1 relative"
+                routerLinkActive="text-blue-primary active-link"
+                class="nav-link text-white/80 hover:text-blue-primary transition-all duration-200 pb-1 relative"
               >
                 <i class="pi pi-envelope mr-2"></i>Contact
               </a>
@@ -95,7 +102,7 @@ import {
           <div class="hidden md:block">
             <p-button
               label="Get Started"
-              icon="pi pi-rocket"
+              icon="pi pi-bolt"
               severity="primary"
               [rounded]="true"
               [outlined]="false"
@@ -109,7 +116,7 @@ import {
           <div class="md:hidden">
             <button
               (click)="toggleMobileMenu()"
-              class="text-white hover:text-primary transition-colors duration-200 p-2"
+              class="text-white hover:text-blue-primary transition-colors duration-200 p-2"
             >
               <i
                 [class]="isMobileMenuOpen() ? 'pi pi-times' : 'pi pi-bars'"
@@ -129,50 +136,58 @@ import {
         <div class="px-2 pt-2 pb-3 space-y-1">
           <a
             routerLink="/home"
-            routerLinkActive="text-primary bg-primary/10"
+            routerLinkActive="text-blue-primary bg-blue-primary/10"
             [routerLinkActiveOptions]="{ exact: true }"
             (click)="closeMobileMenu()"
-            class="block px-3 py-2 text-white/80 hover:text-primary hover:bg-primary/10 transition-all duration-200 rounded-lg"
+            class="block px-3 py-2 text-white/80 hover:text-blue-primary hover:bg-blue-primary/10 transition-all duration-200 rounded-lg"
           >
             <i class="pi pi-home mr-2"></i>Home
           </a>
           <a
             routerLink="/smart-hotels"
-            routerLinkActive="text-primary bg-primary/10"
+            routerLinkActive="text-blue-primary bg-blue-primary/10"
             (click)="closeMobileMenu()"
-            class="block px-3 py-2 text-white/80 hover:text-primary hover:bg-primary/10 transition-all duration-200 rounded-lg"
+            class="block px-3 py-2 text-white/80 hover:text-blue-primary hover:bg-blue-primary/10 transition-all duration-200 rounded-lg"
           >
             <i class="pi pi-building mr-2"></i>Smart Hotels
           </a>
           <a
             routerLink="/projects"
-            routerLinkActive="text-primary bg-primary/10"
+            routerLinkActive="text-blue-primary bg-blue-primary/10"
             (click)="closeMobileMenu()"
-            class="block px-3 py-2 text-white/80 hover:text-primary hover:bg-primary/10 transition-all duration-200 rounded-lg"
+            class="block px-3 py-2 text-white/80 hover:text-blue-primary hover:bg-blue-primary/10 transition-all duration-200 rounded-lg"
           >
             <i class="pi pi-briefcase mr-2"></i>Projects
           </a>
           <a
             routerLink="/team"
-            routerLinkActive="text-primary bg-primary/10"
+            routerLinkActive="text-blue-primary bg-blue-primary/10"
             (click)="closeMobileMenu()"
-            class="block px-3 py-2 text-white/80 hover:text-primary hover:bg-primary/10 transition-all duration-200 rounded-lg"
+            class="block px-3 py-2 text-white/80 hover:text-blue-primary hover:bg-blue-primary/10 transition-all duration-200 rounded-lg"
           >
             <i class="pi pi-users mr-2"></i>Team
           </a>
           <a
             routerLink="/careers"
-            routerLinkActive="text-primary bg-primary/10"
+            routerLinkActive="text-blue-primary bg-blue-primary/10"
             (click)="closeMobileMenu()"
-            class="block px-3 py-2 text-white/80 hover:text-primary hover:bg-primary/10 transition-all duration-200 rounded-lg"
+            class="block px-3 py-2 text-white/80 hover:text-blue-primary hover:bg-blue-primary/10 transition-all duration-200 rounded-lg"
           >
             <i class="pi pi-briefcase mr-2"></i>Careers
           </a>
           <a
-            routerLink="/contact"
-            routerLinkActive="text-primary bg-primary/10"
+            routerLink="/ai-agent"
+            routerLinkActive="text-blue-primary bg-blue-primary/10"
             (click)="closeMobileMenu()"
-            class="block px-3 py-2 text-white/80 hover:text-primary hover:bg-primary/10 transition-all duration-200 rounded-lg"
+            class="block px-3 py-2 text-white/80 hover:text-blue-primary hover:bg-blue-primary/10 transition-all duration-200 rounded-lg"
+          >
+            <i class="pi pi-comments mr-2"></i>AI Assistant
+          </a>
+          <a
+            routerLink="/contact"
+            routerLinkActive="text-blue-primary bg-blue-primary/10"
+            (click)="closeMobileMenu()"
+            class="block px-3 py-2 text-white/80 hover:text-blue-primary hover:bg-blue-primary/10 transition-all duration-200 rounded-lg"
           >
             <i class="pi pi-envelope mr-2"></i>Contact
           </a>
@@ -235,14 +250,14 @@ import {
 
       /* Enhanced button styles */
       .enhanced-button {
-        box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3),
-          0 8px 25px rgba(0, 212, 255, 0.2);
+        box-shadow: 0 4px 15px rgba(0, 152, 238, 0.3),
+          0 8px 25px rgba(0, 152, 238, 0.2);
         transition: all 0.3s ease;
       }
 
       .enhanced-button:hover {
-        box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4),
-          0 12px 35px rgba(0, 212, 255, 0.3);
+        box-shadow: 0 8px 25px rgba(0, 152, 238, 0.4),
+          0 12px 35px rgba(0, 152, 238, 0.3);
         transform: translateY(-2px);
       }
 

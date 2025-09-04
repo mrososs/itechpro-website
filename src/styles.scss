@@ -1,26 +1,39 @@
 @use "assets/themes/_tailwind.css";
 @import "primeicons/primeicons.css";
 
-/* Custom CSS Variables - Enhanced Colors */
+/* Custom CSS Variables - New Color Scheme */
 :root {
   --color-bg: #0a0e1a;
   --color-surface: #111827;
-  --color-primary: #00d4ff;
-  --color-primary-light: #4ddbff;
-  --color-primary-dark: #0099cc;
-  --color-accent: #a855f7;
-  --color-accent-light: #c084fc;
-  --color-accent-dark: #7c3aed;
+
+  /* New Blue Palette */
+  --color-primary: #0098ee;
+  --color-primary-light: #0197ec;
+  --color-primary-dark: #0098ec;
+  --color-primary-darker: #0099ec;
+  --color-primary-darkest: #0296ec;
+
+  /* Green Accent */
+  --color-secondary: #00f042;
+  --color-accent: #0099ec;
+  --color-accent-light: #0296ec;
+  --color-accent-dark: #0098ec;
+
+  /* Utility Colors */
   --color-muted: #9ca3af;
-  --color-success: #10b981;
+  --color-success: #00f042;
   --color-warning: #f59e0b;
   --color-error: #ef4444;
   --color-text: #ffffff;
   --color-text-secondary: #d1d5db;
+
+  /* Border and Shadow Colors */
   --color-border: rgba(255, 255, 255, 0.1);
-  --color-border-hover: rgba(0, 212, 255, 0.3);
-  --color-shadow: rgba(0, 212, 255, 0.1);
-  --color-shadow-accent: rgba(168, 85, 247, 0.1);
+  --color-border-hover: rgba(0, 152, 238, 0.3);
+  --color-shadow: rgba(0, 152, 238, 0.1);
+  --color-shadow-accent: rgba(0, 240, 66, 0.1);
+  --color-shadow-primary: rgba(0, 152, 238, 0.2);
+  --color-shadow-secondary: rgba(0, 240, 66, 0.2);
 }
 
 /* Base Styles */
@@ -154,12 +167,12 @@ a:hover {
   box-shadow: 0 12px 40px var(--color-shadow);
 }
 
-/* Gradient Text */
+/* Gradient Text - New Color Scheme */
 .gradient-text {
   background: linear-gradient(
     135deg,
     var(--color-primary),
-    var(--color-accent)
+    var(--color-secondary)
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -171,6 +184,28 @@ a:hover {
     135deg,
     var(--color-primary),
     var(--color-primary-light)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-secondary {
+  background: linear-gradient(
+    135deg,
+    var(--color-secondary),
+    var(--color-primary)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-blue {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-primary-darker)
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -337,16 +372,16 @@ a:hover {
   box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2) !important;
 }
 
-/* Enhanced Background Patterns */
+/* Enhanced Background Patterns - New Color Scheme */
 .bg-pattern {
   background-image: radial-gradient(
       circle at 25% 25%,
-      rgba(0, 212, 255, 0.1) 0%,
+      rgba(0, 152, 238, 0.1) 0%,
       transparent 50%
     ),
     radial-gradient(
       circle at 75% 75%,
-      rgba(168, 85, 247, 0.1) 0%,
+      rgba(0, 240, 66, 0.1) 0%,
       transparent 50%
     );
 }
@@ -354,66 +389,99 @@ a:hover {
 .bg-pattern-hero {
   background-image: radial-gradient(
       circle at 20% 20%,
-      rgba(0, 212, 255, 0.15) 0%,
+      rgba(0, 152, 238, 0.15) 0%,
       transparent 40%
     ),
     radial-gradient(
       circle at 80% 80%,
-      rgba(168, 85, 247, 0.15) 0%,
+      rgba(0, 240, 66, 0.15) 0%,
       transparent 40%
     ),
     radial-gradient(
       circle at 50% 50%,
-      rgba(0, 212, 255, 0.05) 0%,
+      rgba(0, 152, 238, 0.05) 0%,
       transparent 60%
     );
 }
 
-/* Enhanced Shadows */
+.bg-pattern-blue {
+  background-image: radial-gradient(
+      circle at 30% 30%,
+      rgba(0, 152, 238, 0.12) 0%,
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 70% 70%,
+      rgba(1, 151, 236, 0.12) 0%,
+      transparent 45%
+    );
+}
+
+.bg-pattern-green {
+  background-image: radial-gradient(
+      circle at 40% 40%,
+      rgba(0, 240, 66, 0.12) 0%,
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 60% 60%,
+      rgba(0, 152, 238, 0.08) 0%,
+      transparent 45%
+    );
+}
+
+/* Enhanced Shadows - New Color Scheme */
 .shadow-glow {
-  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3),
-    0 8px 25px rgba(0, 212, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 152, 238, 0.3),
+    0 8px 25px rgba(0, 152, 238, 0.2);
 }
 
 .shadow-glow-accent {
-  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3),
-    0 8px 25px rgba(168, 85, 247, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 240, 66, 0.3), 0 8px 25px rgba(0, 240, 66, 0.2);
 }
 
-/* Enhanced Button Classes */
+.shadow-glow-primary {
+  box-shadow: 0 4px 15px rgba(0, 152, 238, 0.4),
+    0 8px 25px rgba(0, 152, 238, 0.3);
+}
+
+.shadow-glow-secondary {
+  box-shadow: 0 4px 15px rgba(0, 240, 66, 0.4), 0 8px 25px rgba(0, 240, 66, 0.3);
+}
+
+/* Enhanced Button Classes - New Color Scheme */
 .enhanced-primary-button {
-  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3),
-    0 8px 25px rgba(0, 212, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 152, 238, 0.3),
+    0 8px 25px rgba(0, 152, 238, 0.2);
   transition: all 0.3s ease;
 }
 
 .enhanced-primary-button:hover {
-  box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4),
-    0 12px 35px rgba(0, 212, 255, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 152, 238, 0.4),
+    0 12px 35px rgba(0, 152, 238, 0.3);
   transform: translateY(-2px);
 }
 
 .enhanced-secondary-button {
-  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3),
-    0 8px 25px rgba(168, 85, 247, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 240, 66, 0.3), 0 8px 25px rgba(0, 240, 66, 0.2);
   transition: all 0.3s ease;
 }
 
 .enhanced-secondary-button:hover {
-  box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4),
-    0 12px 35px rgba(168, 85, 247, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 240, 66, 0.4),
+    0 12px 35px rgba(0, 240, 66, 0.3);
   transform: translateY(-2px);
 }
 
 .enhanced-button {
-  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3),
-    0 8px 25px rgba(0, 212, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 152, 238, 0.3),
+    0 8px 25px rgba(0, 152, 238, 0.2);
   transition: all 0.3s ease;
 }
 
 .enhanced-button:hover {
-  box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4),
-    0 12px 35px rgba(0, 212, 255, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 152, 238, 0.4),
+    0 12px 35px rgba(0, 152, 238, 0.3);
   transform: translateY(-2px);
 }
 
@@ -484,5 +552,83 @@ a:hover {
 }
 
 .icon-glow-accent {
-  filter: drop-shadow(0 0 8px var(--color-accent));
+  filter: drop-shadow(0 0 8px var(--color-secondary));
+}
+
+.icon-glow-primary {
+  filter: drop-shadow(0 0 8px var(--color-primary));
+}
+
+.icon-glow-secondary {
+  filter: drop-shadow(0 0 8px var(--color-secondary));
+}
+
+/* New Color Scheme Utility Classes */
+.text-blue-primary {
+  color: var(--color-primary);
+}
+.text-blue-secondary {
+  color: var(--color-primary-light);
+}
+.text-blue-tertiary {
+  color: var(--color-primary-dark);
+}
+.text-green-accent {
+  color: var(--color-secondary);
+}
+
+.bg-blue-primary {
+  background-color: var(--color-primary);
+}
+.bg-blue-secondary {
+  background-color: var(--color-primary-light);
+}
+.bg-blue-tertiary {
+  background-color: var(--color-primary-dark);
+}
+.bg-green-accent {
+  background-color: var(--color-secondary);
+}
+
+.border-blue-primary {
+  border-color: var(--color-primary);
+}
+.border-blue-secondary {
+  border-color: var(--color-primary-light);
+}
+.border-green-accent {
+  border-color: var(--color-secondary);
+}
+
+/* Gradient Backgrounds */
+.bg-gradient-primary {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-primary-light)
+  );
+}
+
+.bg-gradient-secondary {
+  background: linear-gradient(
+    135deg,
+    var(--color-secondary),
+    var(--color-primary)
+  );
+}
+
+.bg-gradient-blue {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-primary-darker)
+  );
+}
+
+.bg-gradient-mixed {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-secondary)
+  );
 }

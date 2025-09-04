@@ -41,14 +41,14 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
       <!-- Background Elements -->
       <div class="absolute inset-0">
         <div
-          class="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse"
+          class="absolute top-20 left-10 w-72 h-72 bg-blue-primary/20 rounded-full blur-3xl animate-pulse"
         ></div>
         <div
-          class="absolute bottom-20 right-10 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-pulse"
+          class="absolute bottom-20 right-10 w-96 h-96 bg-green-accent/20 rounded-full blur-3xl animate-pulse"
           style="animation-delay: 1s;"
         ></div>
         <div
-          class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-float"
+          class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-secondary/10 rounded-full blur-3xl animate-float"
         ></div>
       </div>
 
@@ -61,7 +61,8 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
           class="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight"
         >
           <span class="gradient-text-primary">ITECHPRO</span> — Egypt's
-          Pioneering <span class="gradient-text-accent">Smart Hotels</span> Tech
+          Pioneering
+          <span class="gradient-text-secondary">Smart Hotels</span> Tech
         </h1>
 
         <p
@@ -111,7 +112,7 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
         >
           <div class="scroll-down-circle">
             <i
-              class="pi pi-chevron-down text-xl text-primary group-hover:text-primary-light transition-colors duration-300"
+              class="pi pi-chevron-down text-xl text-blue-primary group-hover:text-blue-secondary transition-colors duration-300"
             ></i>
           </div>
         </button>
@@ -174,19 +175,25 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
             </p>
             <div class="space-y-4">
               <div class="flex items-center space-x-3">
-                <div class="w-3 h-3 bg-primary rounded-full shadow-glow"></div>
+                <div
+                  class="w-3 h-3 bg-blue-primary rounded-full shadow-glow-primary"
+                ></div>
                 <span class="text-white/80"
                   >10+ years hospitality technology experience</span
                 >
               </div>
               <div class="flex items-center space-x-3">
-                <div class="w-3 h-3 bg-primary rounded-full shadow-glow"></div>
+                <div
+                  class="w-3 h-3 bg-green-accent rounded-full shadow-glow-secondary"
+                ></div>
                 <span class="text-white/80"
                   >50+ successful hotel implementations</span
                 >
               </div>
               <div class="flex items-center space-x-3">
-                <div class="w-3 h-3 bg-primary rounded-full shadow-glow"></div>
+                <div
+                  class="w-3 h-3 bg-blue-secondary rounded-full shadow-glow-primary"
+                ></div>
                 <span class="text-white/80"
                   >24/7 technical support & monitoring</span
                 >
@@ -224,7 +231,7 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
             class="text-4xl lg:text-5xl font-bold text-white mb-6"
           >
             People who ship exceptional
-            <span class="gradient-text-accent">hospitality tech</span>
+            <span class="gradient-text-secondary">hospitality tech</span>
           </h2>
           <p
             gsapReveal="slide-up"
@@ -264,7 +271,7 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
     <!-- CTA Section -->
     <section
       id="cta"
-      class="py-20 bg-gradient-to-r from-primary/10 to-accent/10"
+      class="py-20 bg-gradient-to-r from-blue-primary/10 to-green-accent/10"
     >
       <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
         <h2
@@ -298,7 +305,7 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
     <button
       *ngIf="showScrollToTop"
       (click)="scrollToTop()"
-      class="fixed bottom-8 right-8 z-50 bg-primary/80 hover:bg-primary text-white p-3 rounded-full shadow-glow transition-all duration-300 hover:scale-110 backdrop-blur-xl"
+      class="fixed bottom-8 right-8 z-50 bg-blue-primary/80 hover:bg-blue-primary text-white p-3 rounded-full shadow-glow-primary transition-all duration-300 hover:scale-110 backdrop-blur-xl"
       [@fadeInOut]="showScrollToTop ? 'visible' : 'hidden'"
     >
       <i class="pi pi-chevron-up text-xl"></i>
@@ -334,34 +341,34 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
 
       /* Enhanced button styles */
       .enhanced-primary-button {
-        box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3),
-          0 8px 25px rgba(0, 212, 255, 0.2);
+        box-shadow: 0 4px 15px rgba(0, 152, 238, 0.3),
+          0 8px 25px rgba(0, 152, 238, 0.2);
         transition: all 0.3s ease;
       }
 
       .enhanced-primary-button:hover {
-        box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4),
-          0 12px 35px rgba(0, 212, 255, 0.3);
+        box-shadow: 0 8px 25px rgba(0, 152, 238, 0.4),
+          0 12px 35px rgba(0, 152, 238, 0.3);
         transform: translateY(-2px);
       }
 
       .enhanced-secondary-button {
-        box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3),
-          0 8px 25px rgba(168, 85, 247, 0.2);
+        box-shadow: 0 4px 15px rgba(0, 240, 66, 0.3),
+          0 8px 25px rgba(0, 240, 66, 0.2);
         transition: all 0.3s ease;
       }
 
       .enhanced-secondary-button:hover {
-        box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4),
-          0 12px 35px rgba(168, 85, 247, 0.3);
+        box-shadow: 0 8px 25px rgba(0, 240, 66, 0.4),
+          0 12px 35px rgba(0, 240, 66, 0.3);
         transform: translateY(-2px);
       }
 
       /* Enhanced scroll down button */
       .scroll-down-button {
         transition: all 0.3s ease;
-        border:none;
-        background:none;
+        border: none;
+        background: none;
       }
 
       .scroll-down-button:hover {
@@ -373,19 +380,19 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
         height: 60px;
         background: rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(20px);
-        border: 2px solid rgba(0, 212, 255, 0.3);
+        border: 2px solid rgba(0, 152, 238, 0.3);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
+        box-shadow: 0 4px 15px rgba(0, 152, 238, 0.2);
       }
 
       .scroll-down-button:hover .scroll-down-circle {
-        border-color: rgba(0, 212, 255, 0.6);
-        box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3),
-          0 0 20px rgba(0, 212, 255, 0.2);
+        border-color: rgba(0, 152, 238, 0.6);
+        box-shadow: 0 8px 25px rgba(0, 152, 238, 0.3),
+          0 0 20px rgba(0, 152, 238, 0.2);
         transform: scale(1.1);
       }
 
@@ -409,7 +416,7 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
         background: linear-gradient(
           135deg,
           var(--color-primary),
-          var(--color-accent)
+          var(--color-secondary)
         );
         mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
         mask-composite: exclude;
