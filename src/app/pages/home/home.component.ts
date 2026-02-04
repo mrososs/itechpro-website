@@ -19,6 +19,7 @@ import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
 import { GsapParallaxDirective } from '../../directives/gsap-parallax.directive';
 import { ServiceCardComponent } from '../../components/service-card/service-card.component';
 import { TeamCardComponent } from '../../components/team-card/team-card.component';
+import { ScheduleConsultantDialogComponent } from '../../components/schedule-consultant-dialog/schedule-consultant-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -32,110 +33,158 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
     GsapParallaxDirective,
     ServiceCardComponent,
     TeamCardComponent,
+    ScheduleConsultantDialogComponent,
   ],
   template: `
     <!-- Hero Section -->
+    <!-- Hero Section -->
     <section
-      class="relative min-h-screen flex items-center justify-center overflow-hidden bg-pattern-hero pt-16"
+      class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
     >
-      <!-- Background Elements -->
-      <div class="absolute inset-0">
+      <!-- Video Background -->
+      <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-black/70 z-10"></div>
+        <!-- Gold Accent Overlay -->
         <div
-          class="absolute top-20 left-10 w-72 h-72 bg-blue-primary/20 rounded-full blur-3xl animate-pulse"
+          class="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-primary/10 z-10"
         ></div>
-        <div
-          class="absolute bottom-20 right-10 w-96 h-96 bg-green-accent/20 rounded-full blur-3xl animate-pulse"
-          style="animation-delay: 1s;"
-        ></div>
-        <div
-          class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-secondary/10 rounded-full blur-3xl animate-float"
-        ></div>
+        <video
+          class="w-full h-full object-cover"
+          autoplay
+          playsinline
+          muted
+          loop
+        >
+          <source src="assets/video/itechpro.mp4" type="video/mp4" />
+        </video>
       </div>
 
-      <div
-        class="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto"
-      >
+      <div class="relative z-20 text-center w-full px-4 sm:px-6 lg:px-8">
+        <span
+          gsapReveal="slide-up"
+          class="inline-block py-1 px-3 rounded-full bg-gold/10 border border-gold/20 text-gold text-sm font-semibold tracking-widest uppercase mb-6"
+        >
+          Premier Software Development Firm
+        </span>
         <h1
           gsapReveal="slide-up"
           [delay]="0.2"
-          class="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+          class="text-5xl sm:text-6xl lg:text-8xl font-bold text-white force-light-text mb-8 leading-tight tracking-tight"
         >
-          <span class="gradient-text-primary">ITECHPRO</span> — Egypt's
-          Pioneering
-          <span class="gradient-text-secondary">Smart Hotels</span> Tech
+          Building High-End <br />
+          <span class="gradient-text-logo">Web Applications</span>
         </h1>
 
         <p
           gsapReveal="slide-up"
           [delay]="0.4"
-          class="text-xl sm:text-2xl text-white/80 mb-8 max-w-4xl mx-auto leading-relaxed"
+          class="text-xl sm:text-2xl text-white/80 force-light-text mb-12 max-w-3xl mx-auto leading-relaxed font-light"
         >
-          We build high-performing hospitality products: Booking Websites,
-          Mobile Apps, PMS Integrations, IoT Room Automation, and Data
-          Analytics.
+          Specializing in Interactive Dashboards and Mission-Critical Software
+          Solutions.
         </p>
 
         <div
           gsapReveal="slide-up"
           [delay]="0.6"
-          class="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          class="flex flex-col sm:flex-row gap-8 justify-center items-center mb-20"
         >
           <p-button
-            label="Talk to an Expert"
-            icon="pi pi-comments"
+            label="Get Started"
+            icon="pi pi-arrow-right"
             severity="primary"
-            [rounded]="true"
+            [rounded]="false"
             [outlined]="false"
-            routerLink="/contact"
-            class="text-lg px-8 py-4 enhanced-primary-button"
+            (onClick)="openScheduleDialog()"
+            class="text-lg enhanced-primary-button"
+            styleClass="py-5 px-10 text-xl uppercase tracking-widest font-bold"
           >
           </p-button>
           <p-button
-            label="Explore Smart Hotels"
-            icon="pi pi-building"
+            label="View Portfolio"
+            icon="pi pi-images"
             severity="secondary"
-            [rounded]="true"
+            [rounded]="false"
             [outlined]="true"
-            routerLink="/smart-hotels"
-            class="text-lg px-8 py-4 enhanced-secondary-button"
+            routerLink="/projects"
+            class="text-lg enhanced-secondary-button force-light-text"
+            styleClass="py-5 px-10 text-xl uppercase tracking-widest font-bold bg-white/5 backdrop-blur-sm border-white/20 hover:border-gold hover:text-gold text-white force-light-text"
           >
           </p-button>
         </div>
-      </div>
 
-      <!-- Scroll Down Arrow -->
-      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-        <button
-          (click)="scrollToSection('services')"
-          class="scroll-down-button group"
-          aria-label="Scroll down to services"
+        <!-- Trusted By Ticker -->
+        <div
+          gsapReveal="fade"
+          [delay]="0.8"
+          class="w-full max-w-6xl mx-auto overflow-hidden relative group"
         >
-          <div class="scroll-down-circle">
-            <i
-              class="pi pi-chevron-down text-xl text-blue-primary group-hover:text-blue-secondary transition-colors duration-300"
-            ></i>
+          <div
+            class="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-black/80 to-transparent z-10"
+          ></div>
+          <div
+            class="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black/80 to-transparent z-10"
+          ></div>
+
+          <div
+            class="flex items-center gap-16 animate-scroll whitespace-nowrap py-4"
+          >
+            <!-- Logos Loop (Duplicated for seamless scroll) -->
+            <ng-container *ngFor="let client of clients">
+              <img
+                [src]="client"
+                class="h-12 w-auto opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 duration-300 client-logo"
+                alt="Client Logo"
+              />
+            </ng-container>
+            <!-- Duplicate for loop -->
+            <ng-container *ngFor="let client of clients">
+              <img
+                [src]="client"
+                class="h-12 w-auto opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 duration-300 client-logo"
+                alt="Client Logo"
+              />
+            </ng-container>
+            <!-- Duplicate again if list is short -->
+            <ng-container *ngIf="clients.length < 5">
+              <ng-container *ngFor="let client of clients">
+                <img
+                  [src]="client"
+                  class="h-12 w-auto opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 duration-300 client-logo"
+                  alt="Client Logo"
+                />
+              </ng-container>
+            </ng-container>
           </div>
-        </button>
+
+          <div
+            *ngIf="clients.length === 0"
+            class="text-white/40 text-sm uppercase tracking-widest"
+          >
+            Trusted by Industry Leaders
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-20 bg-surface bg-pattern">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
+    <section id="services" class="py-32 bg-bg relative">
+      <div class="absolute inset-0 bg-pattern opacity-5"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-20">
           <h2
             gsapReveal="slide-up"
             class="text-4xl lg:text-5xl font-bold text-white mb-6"
           >
-            Our <span class="gradient-text-primary">Services</span>
+            Elite <span class="gradient-text-primary">Solutions</span>
           </h2>
           <p
             gsapReveal="slide-up"
             [delay]="0.2"
-            class="text-xl text-white/70 max-w-3xl mx-auto"
+            class="text-xl text-white/60 max-w-2xl mx-auto"
           >
-            Comprehensive technology solutions designed specifically for the
-            hospitality industry
+            Bespoke technology ecosystems engineered for the world's most
+            prestigious hotels.
           </p>
         </div>
 
@@ -152,70 +201,113 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 bg-bg">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section id="about" class="py-32 bg-surface relative overflow-hidden">
+      <!-- Decor -->
+      <div
+        class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-gold/5 to-transparent"
+      ></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
+            <span
+              gsapReveal="slide-up"
+              class="text-gold font-bold tracking-widest uppercase text-sm mb-4 block"
+            >
+              Why ITECHPRO
+            </span>
             <h2
               gsapReveal="slide-up"
-              class="text-4xl lg:text-5xl font-bold text-white mb-6"
+              class="text-4xl lg:text-6xl font-bold text-white mb-8 leading-tight"
             >
-              Why Choose <span class="gradient-text-primary">ITECHPRO</span>?
+              The Gold Standard in <br />
+              <span class="gradient-text-primary">Hotel Technology</span>
             </h2>
             <p
               gsapReveal="slide-up"
               [delay]="0.2"
-              class="text-xl text-white/70 mb-8 leading-relaxed"
+              class="text-xl text-white/70 mb-10 leading-relaxed font-light"
             >
-              As Egypt's first specialized Smart Hotels technology company, we
-              bring deep expertise in hospitality operations combined with
-              cutting-edge technology solutions. Our team understands the unique
-              challenges of the tourism sector and delivers solutions that drive
-              real business value.
+              We don't just build software; we architect experiences. As Egypt's
+              premier Hotel Technology partner, we combine decades of
+              operational wisdom with cutting-edge innovation to deliver systems
+              that are as beautiful as they are powerful.
             </p>
-            <div class="space-y-4">
-              <div class="flex items-center space-x-3">
+
+            <div class="space-y-8">
+              <div class="flex items-center gap-6 group">
                 <div
-                  class="w-3 h-3 bg-blue-primary rounded-full shadow-glow-primary"
-                ></div>
-                <span class="text-white/80"
-                  >10+ years hospitality technology experience</span
+                  class="shrink-0 w-14 h-14 rounded-2xl bg-gold/10 flex items-center justify-center border border-gold/20 group-hover:border-gold/50 group-hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all duration-300"
                 >
+                  <i class="pi pi-star text-gold text-2xl"></i>
+                </div>
+                <div>
+                  <h4
+                    class="text-white font-bold text-xl mb-1 group-hover:text-gold transition-colors"
+                  >
+                    Excellence Driven
+                  </h4>
+                  <p class="text-white/60 text-lg font-light">
+                    10+ years of setting benchmarks in hospitality technology.
+                  </p>
+                </div>
               </div>
-              <div class="flex items-center space-x-3">
+
+              <div class="flex items-center gap-6 group">
                 <div
-                  class="w-3 h-3 bg-green-accent rounded-full shadow-glow-secondary"
-                ></div>
-                <span class="text-white/80"
-                  >50+ successful hotel implementations</span
+                  class="shrink-0 w-14 h-14 rounded-2xl bg-gold/10 flex items-center justify-center border border-gold/20 group-hover:border-gold/50 group-hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all duration-300"
                 >
+                  <i class="pi pi-check-circle text-gold text-2xl"></i>
+                </div>
+                <div>
+                  <h4
+                    class="text-white font-bold text-xl mb-1 group-hover:text-gold transition-colors"
+                  >
+                    Proven Impact
+                  </h4>
+                  <p class="text-white/60 text-lg font-light">
+                    50+ High-end hotel implementations across the region.
+                  </p>
+                </div>
               </div>
-              <div class="flex items-center space-x-3">
+
+              <div class="flex items-center gap-6 group">
                 <div
-                  class="w-3 h-3 bg-blue-secondary rounded-full shadow-glow-primary"
-                ></div>
-                <span class="text-white/80"
-                  >24/7 technical support & monitoring</span
+                  class="shrink-0 w-14 h-14 rounded-2xl bg-gold/10 flex items-center justify-center border border-gold/20 group-hover:border-gold/50 group-hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all duration-300"
                 >
+                  <i class="pi pi-shield text-gold text-2xl"></i>
+                </div>
+                <div>
+                  <h4
+                    class="text-white font-bold text-xl mb-1 group-hover:text-gold transition-colors"
+                  >
+                    Unwavering Support
+                  </h4>
+                  <p class="text-white/60 text-lg font-light">
+                    24/7 White-glove technical monitoring and assistance.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
 
-          <div gsapParallax="y" [speed]="0.3" class="relative">
-            <div class="gradient-border">
+          <div gsapParallax="y" [speed]="0.2" class="relative hidden lg:block">
+            <div
+              class="absolute inset-0 bg-gold/20 blur-3xl rounded-full opacity-20 transform translate-x-10 -translate-y-10"
+            ></div>
+            <div
+              class="glass-panel rounded-3xl p-12 text-center border border-white/10 relative"
+            >
+              <div class="text-8xl font-bold text-gold mb-2">100%</div>
               <div
-                class="bg-black/30 backdrop-blur-xl rounded-3xl p-8 text-center"
+                class="text-2xl font-semibold text-white mb-6 uppercase tracking-widest"
               >
-                <div class="text-6xl font-bold gradient-text-primary mb-4">
-                  100%
-                </div>
-                <div class="text-2xl font-semibold text-white mb-2">
-                  Client Satisfaction
-                </div>
-                <div class="text-white/70">
-                  Every project delivered on time and exceeds expectations
-                </div>
+                Client Satisfaction
               </div>
+              <p class="text-white/60">
+                "ITECHPRO delivered beyond our wildest expectations. A true
+                partner in luxury."
+              </p>
             </div>
           </div>
         </div>
@@ -223,23 +315,23 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
     </section>
 
     <!-- Team Preview Section -->
-    <section id="team" class="py-20 bg-surface bg-pattern">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
+    <section id="team" class="py-32 bg-bg relative">
+      <div class="absolute inset-0 bg-pattern opacity-5"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-20">
           <h2
             gsapReveal="slide-up"
             class="text-4xl lg:text-5xl font-bold text-white mb-6"
           >
-            People who ship exceptional
-            <span class="gradient-text-secondary">hospitality tech</span>
+            Master <span class="gradient-text-primary">Architects</span>
           </h2>
           <p
             gsapReveal="slide-up"
             [delay]="0.2"
-            class="text-xl text-white/70 max-w-3xl mx-auto"
+            class="text-xl text-white/60 max-w-2xl mx-auto"
           >
-            Meet the multi-disciplinary team behind ITECHPRO. Click any profile
-            to explore skills, socials and reach out.
+            The visionaries and engineers shaping the next generation of
+            hospitality.
           </p>
         </div>
 
@@ -253,15 +345,16 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
           </ng-container>
         </div>
 
-        <div class="text-center mt-12">
+        <div class="text-center mt-16">
           <p-button
-            label="View Full Team"
+            label="Meet the Team"
             icon="pi pi-users"
             severity="secondary"
-            [rounded]="true"
+            [rounded]="false"
             [outlined]="true"
             routerLink="/team"
-            class="text-lg enhanced-secondary-button"
+            class="enhanced-secondary-button"
+            styleClass="uppercase tracking-widest font-bold px-10 py-4 bg-white/5 backdrop-blur-sm border-white/20 hover:border-gold hover:text-gold text-white transition-all duration-300"
           >
           </p-button>
         </div>
@@ -269,47 +362,42 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
     </section>
 
     <!-- CTA Section -->
-    <section
-      id="cta"
-      class="py-20 bg-gradient-to-r from-blue-primary/10 to-green-accent/10"
-    >
-      <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+    <section id="cta" class="py-32 relative overflow-hidden">
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-bg via-surface to-bg z-0"
+      ></div>
+      <div class="absolute inset-0 bg-pattern opacity-10 z-0"></div>
+
+      <div
+        class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 relative z-10"
+      >
         <h2
           gsapReveal="slide-up"
-          class="text-4xl lg:text-5xl font-bold text-white mb-6"
+          class="text-5xl lg:text-7xl font-bold text-white mb-8 leading-none"
         >
-          Ready to transform your hotel?
+          Ready for the <br /><span class="text-gold">Next Level?</span>
         </h2>
         <p
           gsapReveal="slide-up"
           [delay]="0.2"
-          class="text-xl text-white/70 mb-8"
+          class="text-xl text-white/60 mb-12 max-w-2xl mx-auto"
         >
-          Let's discuss how ITECHPRO can help you create the next generation of
-          smart hospitality experiences.
+          Elevate your hotel's technology infrastructure with our bespoke
+          solutions.
         </p>
         <p-button
-          label="Start Your Project"
-          icon="pi pi-rocket"
+          label="Start Your Journey"
+          icon="pi pi-arrow-right"
           severity="primary"
-          [rounded]="true"
+          [rounded]="false"
           [outlined]="false"
           routerLink="/contact"
-          class="text-lg px-8 py-4 "
+          class="enhanced-primary-button"
+          styleClass="py-5 px-10 text-xl uppercase tracking-widest font-bold"
         >
         </p-button>
       </div>
     </section>
-
-    <!-- Scroll to Top Button -->
-    <button
-      *ngIf="showScrollToTop"
-      (click)="scrollToTop()"
-      class="fixed bottom-8 right-8 z-50 bg-blue-primary/80 hover:bg-blue-primary text-white p-3 rounded-full shadow-glow-primary transition-all duration-300 hover:scale-110 backdrop-blur-xl"
-      [@fadeInOut]="showScrollToTop ? 'visible' : 'hidden'"
-    >
-      <i class="pi pi-chevron-up text-xl"></i>
-    </button>
 
     <!-- Services Template -->
     <ng-template #serviceTemplate let-services>
@@ -332,6 +420,10 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
         </div>
       </ng-container>
     </ng-template>
+
+    <app-schedule-consultant-dialog
+      [(visible)]="scheduleVisible"
+    ></app-schedule-consultant-dialog>
   `,
   styles: [
     `
@@ -339,61 +431,61 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
         display: block;
       }
 
+      /* Ticker Animation */
+      @keyframes scroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+
+      .animate-scroll {
+        display: flex;
+        animation: scroll 30s linear infinite;
+      }
+
+      .animate-scroll:hover {
+        animation-play-state: paused;
+      }
+
+      .client-logo {
+        filter: grayscale(100%) brightness(200%);
+        transition: all 0.3s ease;
+      }
+
+      .client-logo:hover {
+        filter: grayscale(0%) brightness(100%);
+        transform: scale(1.1);
+      }
+
       /* Enhanced button styles */
+
       .enhanced-primary-button {
-        box-shadow: 0 4px 15px rgba(0, 152, 238, 0.3),
-          0 8px 25px rgba(0, 152, 238, 0.2);
+        box-shadow:
+          0 4px 15px rgba(212, 175, 55, 0.3),
+          0 8px 25px rgba(212, 175, 55, 0.2);
         transition: all 0.3s ease;
       }
 
       .enhanced-primary-button:hover {
-        box-shadow: 0 8px 25px rgba(0, 152, 238, 0.4),
-          0 12px 35px rgba(0, 152, 238, 0.3);
+        box-shadow:
+          0 8px 25px rgba(212, 175, 55, 0.4),
+          0 12px 35px rgba(212, 175, 55, 0.3);
         transform: translateY(-2px);
       }
 
       .enhanced-secondary-button {
-        box-shadow: 0 4px 15px rgba(0, 240, 66, 0.3),
-          0 8px 25px rgba(0, 240, 66, 0.2);
+        box-shadow: none;
         transition: all 0.3s ease;
       }
 
       .enhanced-secondary-button:hover {
-        box-shadow: 0 8px 25px rgba(0, 240, 66, 0.4),
-          0 12px 35px rgba(0, 240, 66, 0.3);
+        box-shadow:
+          0 8px 25px rgba(212, 175, 55, 0.15),
+          0 12px 35px rgba(212, 175, 55, 0.1);
         transform: translateY(-2px);
-      }
-
-      /* Enhanced scroll down button */
-      .scroll-down-button {
-        transition: all 0.3s ease;
-        border: none;
-        background: none;
-      }
-
-      .scroll-down-button:hover {
-        transform: translateY(4px);
-      }
-
-      .scroll-down-circle {
-        width: 60px;
-        height: 60px;
-        background: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(20px);
-        border: 2px solid rgba(0, 152, 238, 0.3);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0, 152, 238, 0.2);
-      }
-
-      .scroll-down-button:hover .scroll-down-circle {
-        border-color: rgba(0, 152, 238, 0.6);
-        box-shadow: 0 8px 25px rgba(0, 152, 238, 0.3),
-          0 0 20px rgba(0, 152, 238, 0.2);
-        transform: scale(1.1);
       }
 
       .gradient-border {
@@ -418,52 +510,12 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
           var(--color-primary),
           var(--color-secondary)
         );
-        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
         mask-composite: exclude;
       }
-
-      /* Scroll to top button animations */
-      .scroll-to-top-enter {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      .scroll-to-top-enter-active {
-        opacity: 1;
-        transform: translateY(0);
-        transition: all 0.3s ease-out;
-      }
-
-      .scroll-to-top-exit {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .scroll-to-top-exit-active {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.3s ease-in;
-      }
     `,
-  ],
-  animations: [
-    trigger('fadeInOut', [
-      state(
-        'visible',
-        style({
-          opacity: 1,
-          transform: 'translateY(0)',
-        })
-      ),
-      state(
-        'hidden',
-        style({
-          opacity: 0,
-          transform: 'translateY(20px)',
-        })
-      ),
-      transition('hidden <=> visible', [animate('300ms ease-in-out')]),
-    ]),
   ],
 })
 export class HomeComponent implements OnInit {
@@ -471,12 +523,26 @@ export class HomeComponent implements OnInit {
 
   services: Service[] = [];
   teamPreview: TeamMember[] = [];
-  showScrollToTop = false;
+  clients: string[] = [];
+  scheduleVisible = false;
 
   ngOnInit() {
     this.loadServices();
     this.loadTeamPreview();
-    this.setupScrollListener();
+    this.loadClients();
+  }
+
+  private loadClients() {
+    this.clients = [
+      'assets/images/clients/client-1.png',
+      'assets/images/clients/client-2.png',
+      'assets/images/clients/client-3.png',
+      'assets/images/clients/client-4.png',
+    ];
+  }
+
+  openScheduleDialog() {
+    this.scheduleVisible = true;
   }
 
   private loadServices() {
@@ -491,12 +557,6 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  private setupScrollListener() {
-    window.addEventListener('scroll', () => {
-      this.showScrollToTop = window.scrollY > 500;
-    });
-  }
-
   scrollToSection(sectionId: string) {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -505,13 +565,6 @@ export class HomeComponent implements OnInit {
         block: 'start',
       });
     }
-  }
-
-  scrollToTop() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
   }
 
   trackByService(index: number, service: Service): string {

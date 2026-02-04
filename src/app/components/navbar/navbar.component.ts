@@ -24,15 +24,15 @@ import {
   ],
   template: `
     <nav
-      class="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-xl border-b border-white/10"
+      class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16">
+        <div class="flex justify-between items-center h-20">
           <!-- Logo -->
           <div class="flex-shrink-0">
             <a
               routerLink="/home"
-              class="flex items-center space-x-2 text-white hover:text-blue-primary transition-colors duration-200"
+              class="flex items-center space-x-2 text-white hover:opacity-80 transition-opacity duration-200"
             >
               <img
                 src="assets/img/logo.png"
@@ -47,53 +47,53 @@ import {
             <div class="ml-10 flex items-baseline space-x-8">
               <a
                 routerLink="/home"
-                routerLinkActive="text-blue-primary active-link"
+                routerLinkActive="text-gold active-link"
                 [routerLinkActiveOptions]="{ exact: true }"
-                class="nav-link text-white/80 hover:text-blue-primary transition-all duration-200 pb-1 relative"
+                class="nav-link text-white/70 hover:text-gold transition-all duration-300 pb-1 relative font-medium tracking-wide"
               >
-                <i class="pi pi-home mr-2"></i>Home
+                Home
               </a>
               <a
                 routerLink="/smart-hotels"
-                routerLinkActive="text-blue-primary active-link"
-                class="nav-link text-white/80 hover:text-blue-primary transition-all duration-200 pb-1 relative"
+                routerLinkActive="text-gold active-link"
+                class="nav-link text-white/70 hover:text-gold transition-all duration-300 pb-1 relative font-medium tracking-wide"
               >
-                <i class="pi pi-building mr-2"></i>Smart Hotels
+                Smart Hotels
               </a>
               <a
                 routerLink="/projects"
-                routerLinkActive="text-blue-primary active-link"
-                class="nav-link text-white/80 hover:text-blue-primary transition-all duration-200 pb-1 relative"
+                routerLinkActive="text-gold active-link"
+                class="nav-link text-white/70 hover:text-gold transition-all duration-300 pb-1 relative font-medium tracking-wide"
               >
-                <i class="pi pi-briefcase mr-2"></i>Projects
+                Projects
               </a>
               <a
                 routerLink="/team"
-                routerLinkActive="text-blue-primary active-link"
-                class="nav-link text-white/80 hover:text-blue-primary transition-all duration-200 pb-1 relative"
+                routerLinkActive="text-gold active-link"
+                class="nav-link text-white/70 hover:text-gold transition-all duration-300 pb-1 relative font-medium tracking-wide"
               >
-                <i class="pi pi-users mr-2"></i>Team
+                Team
               </a>
               <a
                 routerLink="/careers"
-                routerLinkActive="text-blue-primary active-link"
-                class="nav-link text-white/80 hover:text-blue-primary transition-all duration-200 pb-1 relative"
+                routerLinkActive="text-gold active-link"
+                class="nav-link text-white/70 hover:text-gold transition-all duration-300 pb-1 relative font-medium tracking-wide"
               >
-                <i class="pi pi-briefcase mr-2"></i>Careers
+                Careers
               </a>
               <a
                 routerLink="/ai-agent"
-                routerLinkActive="text-blue-primary active-link"
-                class="nav-link text-white/80 hover:text-blue-primary transition-all duration-200 pb-1 relative"
+                routerLinkActive="text-gold active-link"
+                class="nav-link text-white/70 hover:text-gold transition-all duration-300 pb-1 relative font-medium tracking-wide"
               >
-                <i class="pi pi-comments mr-2"></i>AI Assistant
+                AI Assistant
               </a>
               <a
                 routerLink="/contact"
-                routerLinkActive="text-blue-primary active-link"
-                class="nav-link text-white/80 hover:text-blue-primary transition-all duration-200 pb-1 relative"
+                routerLinkActive="text-gold active-link"
+                class="nav-link text-white/70 hover:text-gold transition-all duration-300 pb-1 relative font-medium tracking-wide"
               >
-                <i class="pi pi-envelope mr-2"></i>Contact
+                Contact
               </a>
             </div>
           </div>
@@ -102,12 +102,13 @@ import {
           <div class="hidden md:block">
             <p-button
               label="Get Started"
-              icon="pi pi-bolt"
+              icon="pi pi-arrow-right"
               severity="primary"
-              [rounded]="true"
+              [rounded]="false"
               [outlined]="false"
               (onClick)="navigateToContact()"
-              class="enhanced-button"
+              class="enhanced-primary-button"
+              styleClass="uppercase tracking-widest text-xs font-bold"
             >
             </p-button>
           </div>
@@ -116,7 +117,7 @@ import {
           <div class="md:hidden">
             <button
               (click)="toggleMobileMenu()"
-              class="text-white hover:text-blue-primary transition-colors duration-200 p-2"
+              class="text-white hover:text-gold transition-colors duration-200 p-2"
             >
               <i
                 [class]="isMobileMenuOpen() ? 'pi pi-times' : 'pi pi-bars'"
@@ -131,75 +132,75 @@ import {
       <!-- Mobile Navigation -->
       <div
         [@slideDown]="isMobileMenuOpen() ? 'open' : 'closed'"
-        class="md:hidden bg-black/30 backdrop-blur-xl border-t border-white/10"
+        class="md:hidden bg-bg/95 backdrop-blur-xl border-t border-white/5"
       >
-        <div class="px-2 pt-2 pb-3 space-y-1">
+        <div class="px-4 pt-4 pb-6 space-y-2">
           <a
             routerLink="/home"
-            routerLinkActive="text-blue-primary bg-blue-primary/10"
+            routerLinkActive="text-gold bg-white/5 border-l-2 border-gold"
             [routerLinkActiveOptions]="{ exact: true }"
             (click)="closeMobileMenu()"
-            class="block px-3 py-2 text-white/80 hover:text-blue-primary hover:bg-blue-primary/10 transition-all duration-200 rounded-lg"
+            class="block px-4 py-3 text-white/80 hover:text-gold hover:bg-white/5 transition-all duration-200"
           >
-            <i class="pi pi-home mr-2"></i>Home
+            Home
           </a>
           <a
             routerLink="/smart-hotels"
-            routerLinkActive="text-blue-primary bg-blue-primary/10"
+            routerLinkActive="text-gold bg-white/5 border-l-2 border-gold"
             (click)="closeMobileMenu()"
-            class="block px-3 py-2 text-white/80 hover:text-blue-primary hover:bg-blue-primary/10 transition-all duration-200 rounded-lg"
+            class="block px-4 py-3 text-white/80 hover:text-gold hover:bg-white/5 transition-all duration-200"
           >
-            <i class="pi pi-building mr-2"></i>Smart Hotels
+            Smart Hotels
           </a>
           <a
             routerLink="/projects"
-            routerLinkActive="text-blue-primary bg-blue-primary/10"
+            routerLinkActive="text-gold bg-white/5 border-l-2 border-gold"
             (click)="closeMobileMenu()"
-            class="block px-3 py-2 text-white/80 hover:text-blue-primary hover:bg-blue-primary/10 transition-all duration-200 rounded-lg"
+            class="block px-4 py-3 text-white/80 hover:text-gold hover:bg-white/5 transition-all duration-200"
           >
-            <i class="pi pi-briefcase mr-2"></i>Projects
+            Projects
           </a>
           <a
             routerLink="/team"
-            routerLinkActive="text-blue-primary bg-blue-primary/10"
+            routerLinkActive="text-gold bg-white/5 border-l-2 border-gold"
             (click)="closeMobileMenu()"
-            class="block px-3 py-2 text-white/80 hover:text-blue-primary hover:bg-blue-primary/10 transition-all duration-200 rounded-lg"
+            class="block px-4 py-3 text-white/80 hover:text-gold hover:bg-white/5 transition-all duration-200"
           >
-            <i class="pi pi-users mr-2"></i>Team
+            Team
           </a>
           <a
             routerLink="/careers"
-            routerLinkActive="text-blue-primary bg-blue-primary/10"
+            routerLinkActive="text-gold bg-white/5 border-l-2 border-gold"
             (click)="closeMobileMenu()"
-            class="block px-3 py-2 text-white/80 hover:text-blue-primary hover:bg-blue-primary/10 transition-all duration-200 rounded-lg"
+            class="block px-4 py-3 text-white/80 hover:text-gold hover:bg-white/5 transition-all duration-200"
           >
-            <i class="pi pi-briefcase mr-2"></i>Careers
+            Careers
           </a>
           <a
             routerLink="/ai-agent"
-            routerLinkActive="text-blue-primary bg-blue-primary/10"
+            routerLinkActive="text-gold bg-white/5 border-l-2 border-gold"
             (click)="closeMobileMenu()"
-            class="block px-3 py-2 text-white/80 hover:text-blue-primary hover:bg-blue-primary/10 transition-all duration-200 rounded-lg"
+            class="block px-4 py-3 text-white/80 hover:text-gold hover:bg-white/5 transition-all duration-200"
           >
-            <i class="pi pi-comments mr-2"></i>AI Assistant
+            AI Assistant
           </a>
           <a
             routerLink="/contact"
-            routerLinkActive="text-blue-primary bg-blue-primary/10"
+            routerLinkActive="text-gold bg-white/5 border-l-2 border-gold"
             (click)="closeMobileMenu()"
-            class="block px-3 py-2 text-white/80 hover:text-blue-primary hover:bg-blue-primary/10 transition-all duration-200 rounded-lg"
+            class="block px-4 py-3 text-white/80 hover:text-gold hover:bg-white/5 transition-all duration-200"
           >
-            <i class="pi pi-envelope mr-2"></i>Contact
+            Contact
           </a>
-          <div class="px-3 py-2">
+          <div class="px-4 py-4 mt-2">
             <p-button
               label="Get Started"
-              icon="pi pi-rocket"
+              icon="pi pi-arrow-right"
               severity="primary"
-              [rounded]="true"
+              [rounded]="false"
               [outlined]="false"
               (onClick)="navigateToContact()"
-              class="w-full enhanced-button"
+              class="w-full enhanced-primary-button"
             >
             </p-button>
           </div>
@@ -213,7 +214,7 @@ import {
         display: block;
       }
 
-      /* Active link styles */
+      /* Active link styles with Gold Underline */
       .nav-link {
         position: relative;
       }
@@ -224,75 +225,28 @@ import {
         bottom: 0;
         left: 0;
         width: 0;
-        height: 2px;
-        background: linear-gradient(
-          90deg,
-          var(--color-primary),
-          var(--color-primary-light)
-        );
+        height: 1px;
+        background: var(--color-primary);
         transition: width 0.3s ease;
-        border-radius: 1px;
       }
 
       .nav-link:hover::after {
         width: 100%;
       }
 
+      .active-link {
+        color: var(--color-primary);
+      }
+
       .active-link::after {
         width: 100%;
-        background: linear-gradient(
-          90deg,
-          var(--color-primary),
-          var(--color-primary-light)
-        );
-        box-shadow: 0 0 10px var(--color-primary);
-      }
-
-      /* Enhanced button styles */
-      .enhanced-button {
-        box-shadow: 0 4px 15px rgba(0, 152, 238, 0.3),
-          0 8px 25px rgba(0, 152, 238, 0.2);
-        transition: all 0.3s ease;
-      }
-
-      .enhanced-button:hover {
-        box-shadow: 0 8px 25px rgba(0, 152, 238, 0.4),
-          0 12px 35px rgba(0, 152, 238, 0.3);
-        transform: translateY(-2px);
-      }
-
-      /* Enhanced hover effects */
-      a:hover {
-        transform: translateY(-1px);
-      }
-
-      /* Mobile menu animations */
-      .mobile-menu-enter {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-
-      .mobile-menu-enter-active {
-        opacity: 1;
-        transform: translateY(0);
-        transition: all 0.3s ease-out;
-      }
-
-      .mobile-menu-exit {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .mobile-menu-exit-active {
-        opacity: 0;
-        transform: translateY(-10px);
-        transition: all 0.3s ease-in;
+        background: var(--color-primary);
+        box-shadow: 0 0 10px var(--color-primary-slight);
       }
 
       /* Logo hover effect */
       a:hover img {
-        filter: brightness(1.2);
-        transform: scale(1.05);
+        filter: brightness(1.1);
       }
 
       a img {
@@ -318,7 +272,7 @@ import {
           overflow: 'visible',
         })
       ),
-      transition('closed <=> open', [animate('300ms ease-in-out')]),
+      transition('closed <=> open', [animate('300ms cubic-bezier(0.4, 0, 0.2, 1)')]),
     ]),
   ],
 })

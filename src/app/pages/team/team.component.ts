@@ -21,15 +21,20 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
   template: `
     <!-- Hero Section -->
     <section
-      class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-bg via-surface to-bg pt-16"
+      class="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-bg pt-16"
     >
       <!-- Background Elements -->
+      <div class="absolute inset-0 bg-pattern opacity-10"></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-transparent via-bg/50 to-bg"
+      ></div>
+
       <div class="absolute inset-0">
         <div
-          class="absolute top-20 left-10 w-72 h-72 bg-blue-primary/10 rounded-full blur-3xl"
+          class="absolute top-20 left-10 w-72 h-72 bg-gold/5 rounded-full blur-3xl"
         ></div>
         <div
-          class="absolute bottom-20 right-10 w-96 h-96 bg-green-accent/10 rounded-full blur-3xl"
+          class="absolute bottom-20 right-10 w-96 h-96 bg-white/5 rounded-full blur-3xl"
         ></div>
       </div>
 
@@ -42,13 +47,13 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
           class="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight"
         >
           People who ship exceptional
-          <span class="text-green-accent">hospitality tech</span>
+          <span class="gradient-text-primary">hospitality tech</span>
         </h1>
 
         <p
           gsapReveal="slide-up"
           [delay]="0.4"
-          class="text-xl sm:text-2xl text-white/80 mb-8 max-w-4xl mx-auto leading-relaxed"
+          class="text-xl sm:text-2xl text-white/80 mb-8 max-w-4xl mx-auto leading-relaxed font-light"
         >
           Meet the multi-disciplinary team behind ITECHPRO. Click any profile to
           explore skills, socials and reach out.
@@ -59,10 +64,11 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
             label="Join Our Team"
             icon="pi pi-users"
             severity="primary"
-            [rounded]="true"
+            [rounded]="false"
             [outlined]="false"
             routerLink="/contact"
-            class="text-lg px-8 py-4 enhanced-primary-button"
+            class="enhanced-primary-button"
+            styleClass="text-lg px-8 py-4 uppercase tracking-widest font-bold"
           >
           </p-button>
         </div>
@@ -70,14 +76,15 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
     </section>
 
     <!-- Team Grid Section -->
-    <section class="py-20 bg-surface">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-20 bg-surface relative">
+      <div class="absolute inset-0 bg-pattern opacity-5"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-16">
           <h2
             gsapReveal="slide-up"
             class="text-4xl lg:text-5xl font-bold text-white mb-6"
           >
-            Meet the Team
+            Meet the <span class="gradient-text-primary">Team</span>
           </h2>
           <p
             gsapReveal="slide-up"
@@ -95,53 +102,79 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
             *ngFor="let member of team; let i = index"
             gsapReveal="scale"
             [delay]="i * 0.1"
+            class="h-full"
           >
-            <app-team-card [teamMember]="member"></app-team-card>
+            <app-team-card
+              [teamMember]="member"
+              class="h-full block"
+            ></app-team-card>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Team Stats Section -->
-    <section class="py-20 bg-bg">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-20 bg-bg relative">
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-bg to-surface opacity-50"
+      ></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div gsapReveal="slide-up" [delay]="0.1" class="text-center">
+          <div
+            gsapReveal="slide-up"
+            [delay]="0.1"
+            class="text-center glass-panel p-8 rounded-2xl border border-white/5"
+          >
             <div
-              class="w-20 h-20 bg-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-4"
+              class="w-20 h-20 bg-gold/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-gold/20"
             >
-              <i class="pi pi-users text-3xl text-primary"></i>
+              <i class="pi pi-users text-3xl text-blue-400"></i>
             </div>
             <div class="text-4xl font-bold text-white mb-2">4</div>
-            <div class="text-white/70">Team Members</div>
+            <div class="text-white/70 uppercase tracking-widest text-sm">
+              Team Members
+            </div>
           </div>
 
-          <div gsapReveal="slide-up" [delay]="0.2" class="text-center">
+          <div
+            gsapReveal="slide-up"
+            [delay]="0.2"
+            class="text-center glass-panel p-8 rounded-2xl border border-white/5"
+          >
             <div
-              class="w-20 h-20 bg-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-4"
+              class="w-20 h-20 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-white/20"
             >
-              <i class="pi pi-star text-3xl text-accent"></i>
+              <i class="pi pi-star text-3xl text-white"></i>
             </div>
             <div class="text-4xl font-bold text-white mb-2">15+</div>
-            <div class="text-white/70">Years Combined Experience</div>
+            <div class="text-white/70 uppercase tracking-widest text-sm">
+              Years Combined Experience
+            </div>
           </div>
 
-          <div gsapReveal="slide-up" [delay]="0.3" class="text-center">
+          <div
+            gsapReveal="slide-up"
+            [delay]="0.3"
+            class="text-center glass-panel p-8 rounded-2xl border border-white/5"
+          >
             <div
-              class="w-20 h-20 bg-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-4"
+              class="w-20 h-20 bg-green-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-green-500/20"
             >
-              <i class="pi pi-check-circle text-3xl text-primary"></i>
+              <i class="pi pi-check-circle text-3xl text-green-400"></i>
             </div>
             <div class="text-4xl font-bold text-white mb-2">50+</div>
-            <div class="text-white/70">Projects Delivered</div>
+            <div class="text-white/70 uppercase tracking-widest text-sm">
+              Projects Delivered
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Values Section -->
-    <section class="py-20 bg-surface">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-20 bg-surface relative overflow-hidden">
+      <div class="absolute inset-0 bg-pattern opacity-5"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-16">
           <h2
             gsapReveal="slide-up"
@@ -159,63 +192,75 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div gsapReveal="slide-up" [delay]="0.1" class="value-card group">
+          <div
+            gsapReveal="slide-up"
+            [delay]="0.1"
+            class="value-card group h-full"
+          >
             <div
-              class="bg-black/20 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 hover:scale-105 h-full text-center"
+              class="glass-hover bg-surface/30 backdrop-blur-md border border-white/5 rounded-2xl p-8 hover:border-blue-500/30 transition-all duration-300 hover:shadow-glow h-full text-center flex flex-col"
             >
               <div
-                class="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:bg-primary/30 transition-colors duration-300"
+                class="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:bg-blue-500/20 transition-colors duration-300 icon-glow"
               >
-                <i class="pi pi-heart text-2xl text-primary"></i>
+                <i class="pi pi-heart text-2xl text-blue-400"></i>
               </div>
               <h3
-                class="text-xl font-semibold text-white mb-4 group-hover:text-primary transition-colors duration-300"
+                class="text-xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors duration-300"
               >
                 Passion for Excellence
               </h3>
-              <p class="text-white/70 leading-relaxed">
+              <p class="text-white/60 leading-relaxed text-sm">
                 We're driven by the desire to create exceptional experiences
                 that exceed expectations.
               </p>
             </div>
           </div>
 
-          <div gsapReveal="slide-up" [delay]="0.2" class="value-card group">
+          <div
+            gsapReveal="slide-up"
+            [delay]="0.2"
+            class="value-card group h-full"
+          >
             <div
-              class="bg-black/20 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 hover:scale-105 h-full text-center"
+              class="glass-hover bg-surface/30 backdrop-blur-md border border-white/5 rounded-2xl p-8 hover:border-white/30 transition-all duration-300 hover:shadow-glow h-full text-center flex flex-col"
             >
               <div
-                class="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:bg-accent/30 transition-colors duration-300"
+                class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:bg-white/20 transition-colors duration-300 icon-glow"
               >
-                <i class="pi pi-lightbulb text-2xl text-accent"></i>
+                <i class="pi pi-lightbulb text-2xl text-white"></i>
               </div>
               <h3
-                class="text-xl font-semibold text-white mb-4 group-hover:text-accent transition-colors duration-300"
+                class="text-xl font-bold text-white mb-4 group-hover:text-white transition-colors duration-300"
               >
                 Innovation First
               </h3>
-              <p class="text-white/70 leading-relaxed">
+              <p class="text-white/60 leading-relaxed text-sm">
                 We embrace cutting-edge technology and creative solutions to
                 solve complex challenges.
               </p>
             </div>
           </div>
 
-          <div gsapReveal="slide-up" [delay]="0.3" class="value-card group">
+          <div
+            gsapReveal="slide-up"
+            [delay]="0.3"
+            class="value-card group h-full"
+          >
             <div
-              class="bg-black/20 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 hover:scale-105 h-full text-center"
+              class="glass-hover bg-surface/30 backdrop-blur-md border border-white/5 rounded-2xl p-8 hover:border-green-500/30 transition-all duration-300 hover:shadow-glow h-full text-center flex flex-col"
             >
               <div
-                class="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:bg-primary/30 transition-colors duration-300"
+                class="w-16 h-16 bg-green-500/10 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:bg-green-500/20 transition-colors duration-300 icon-glow"
               >
-                <i class="pi pi-handshake text-2xl text-primary"></i>
+                <i class="pi pi-handshake text-2xl text-green-400"></i>
               </div>
               <h3
-                class="text-xl font-semibold text-white mb-4 group-hover:text-primary transition-colors duration-300"
+                class="text-xl font-bold text-white mb-4 group-hover:text-green-400 transition-colors duration-300"
               >
                 Client Partnership
               </h3>
-              <p class="text-white/70 leading-relaxed">
+              <p class="text-white/60 leading-relaxed text-sm">
                 We build long-term relationships based on trust, transparency,
                 and mutual success.
               </p>
@@ -226,41 +271,46 @@ import { TeamCardComponent } from '../../components/team-card/team-card.componen
     </section>
 
     <!-- CTA Section -->
-    <section class="py-20 bg-gradient-to-r from-primary/10 to-accent/10">
-      <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+    <section class="py-32 bg-gradient-to-r from-bg via-surface to-bg relative">
+      <div class="absolute inset-0 bg-pattern opacity-5"></div>
+      <div
+        class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 relative z-10"
+      >
         <h2
           gsapReveal="slide-up"
           class="text-4xl lg:text-5xl font-bold text-white mb-6"
         >
-          Want to join our team?
+          Want to join our <span class="gradient-text-primary">team?</span>
         </h2>
         <p
           gsapReveal="slide-up"
           [delay]="0.2"
-          class="text-xl text-white/70 mb-8"
+          class="text-xl text-white/70 mb-10"
         >
           We're always looking for talented individuals who share our passion
           for hospitality technology
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <div class="flex flex-col sm:flex-row gap-6 justify-center">
           <p-button
             label="View Open Positions"
             icon="pi pi-briefcase"
             severity="primary"
-            [rounded]="true"
+            [rounded]="false"
             [outlined]="false"
             routerLink="/careers"
-            class="text-lg px-8 py-4 enhanced-primary-button"
+            class="enhanced-primary-button"
+            styleClass="uppercase tracking-widest font-bold px-8 py-4"
           >
           </p-button>
           <p-button
             label="Send Your CV"
             icon="pi pi-envelope"
             severity="secondary"
-            [rounded]="true"
+            [rounded]="false"
             [outlined]="true"
             routerLink="/contact"
-            class="text-lg px-8 py-4 enhanced-secondary-button"
+            class="enhanced-secondary-button"
+            styleClass="uppercase tracking-widest font-bold px-8 py-4 bg-transparent border-white/20 text-white hover:text-blue-400 hover:border-blue-400"
           >
           </p-button>
         </div>

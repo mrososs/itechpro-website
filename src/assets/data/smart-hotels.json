@@ -1,11 +1,21 @@
 {
   "hero": {
-    "title": "Smart Hotels Suite",
-    "subtitle": "Websites & Booking • PMS • Digital Keys • IoT • Analytics",
+    "title": "Hospitality Intelligence Suite",
+    "subtitle": "Websites & Booking • PMS Integration • Digital Keys • Business Analytics • Staff Mobility",
     "cta": "Book a discovery call"
   },
-  "forHotels": ["Lower OPEX","Real-time monitoring","Scalable operations","Unified dashboards"],
-  "forGuests": ["Frictionless booking","Personalized stays","Mobile keys","Smart room comfort"],
+  "forHotels": [
+    "Lower OPEX",
+    "Real-time monitoring",
+    "Scalable operations",
+    "Unified dashboards"
+  ],
+  "forGuests": [
+    "Frictionless booking",
+    "Personalized stays",
+    "Mobile keys",
+    "Seamless experience"
+  ],
   "features": [
     {
       "title": "Websites & Booking Engine",
@@ -20,8 +30,8 @@
       "desc": "Self check-in/out, secure mobile keys."
     },
     {
-      "title": "Room Automation (IoT)",
-      "desc": "Control AC, lights, curtains & scenes."
+      "title": "Workflow Automation",
+      "desc": "Automate housekeeping assignments, maintenance requests, and staff notifications."
     },
     {
       "title": "Payments",

@@ -22,28 +22,32 @@ import { TeamDetailsDialogComponent } from '../team-details-dialog/team-details-
       (click)="openTeamDetails()"
     >
       <div
-        class="bg-black/30 backdrop-blur-xl border border-white/10 rounded-3xl p-6 hover:border-green-accent/50 transition-all duration-500 hover:scale-105 h-full flex flex-col relative overflow-hidden"
+        class="glass-hover bg-surface/40 backdrop-blur-xl border border-white/5 rounded-2xl p-6 transition-all duration-500 hover:border-gold/30 hover:shadow-glow h-full flex flex-col relative overflow-hidden"
       >
         <!-- Shimmer effect -->
         <div
-          class="absolute inset-0 bg-gradient-to-r from-transparent via-green-accent/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
+          class="absolute inset-0 bg-gradient-to-r from-transparent via-gold/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
         ></div>
 
         <!-- Avatar -->
         <div
-          class="w-24 h-24 bg-gradient-to-br from-blue-primary/20 to-green-accent/20 rounded-3xl mb-4 flex items-center justify-center mx-auto group-hover:bg-green-accent/30 transition-all duration-300 group-hover:scale-110 icon-glow-secondary relative z-10"
+          class="w-24 h-24 bg-gradient-to-br from-gold/10 to-gold/5 rounded-full mb-6 flex items-center justify-center mx-auto group-hover:bg-gold/20 transition-all duration-300 relative z-10 border-2 border-gold/20"
         >
-          <i class="pi pi-user text-3xl text-green-accent"></i>
+          <i class="pi pi-user text-3xl text-gold"></i>
         </div>
 
         <!-- Content -->
         <div class="flex-1 text-center relative z-10">
           <h3
-            class="text-lg font-bold text-white mb-2 group-hover:text-green-accent transition-colors duration-300"
+            class="text-lg font-bold text-white mb-2 group-hover:text-gold transition-colors duration-300"
           >
             {{ teamMember.name }}
           </h3>
-          <p class="text-white/70 text-sm mb-4">{{ teamMember.role }}</p>
+          <p
+            class="text-white/60 text-sm mb-4 font-medium uppercase tracking-wider"
+          >
+            {{ teamMember.role }}
+          </p>
 
           <!-- Skills -->
           <div class="flex flex-wrap gap-2 justify-center">
@@ -58,10 +62,10 @@ import { TeamDetailsDialogComponent } from '../team-details-dialog/team-details-
         </div>
 
         <!-- Button -->
-        <div class="mt-4 text-center relative z-10">
+        <div class="mt-6 text-center relative z-10">
           <button
             (click)="openTeamDetails()"
-            class="inline-flex items-center text-green-accent hover:text-green-600 transition-all duration-300 group-hover:translate-x-1 font-semibold text-sm px-4 py-2 rounded-xl hover:bg-green-accent/10"
+            class="inline-flex items-center text-gold hover:text-primary-light transition-all duration-300 group-hover:translate-x-1 font-semibold text-xs uppercase tracking-wide px-4 py-2 rounded-lg hover:bg-gold/5"
           >
             View Profile
             <i
@@ -76,7 +80,7 @@ import { TeamDetailsDialogComponent } from '../team-details-dialog/team-details-
     <ng-template #skillTemplate let-skills>
       <span
         *ngFor="let skill of skills.slice(0, 3); trackBy: trackBySkill"
-        class="px-3 py-1 bg-green-accent/20 text-green-accent text-xs rounded-full border border-green-accent/30 font-medium"
+        class="px-2 py-1 bg-gold/10 text-gold text-[10px] rounded-md border border-gold/10 font-medium"
       >
         {{ skill }}
       </span>
@@ -100,21 +104,7 @@ import { TeamDetailsDialogComponent } from '../team-details-dialog/team-details-
       }
 
       .team-card:hover {
-        transform: translateY(-12px) scale(1.03);
-      }
-
-      .team-card:hover .bg-black\\/30 {
-        background: rgba(0, 0, 0, 0.4) !important;
-        border-color: rgba(0, 240, 66, 0.5) !important;
-        box-shadow: 0 25px 50px var(--color-shadow-secondary);
-      }
-
-      .icon-glow-secondary {
-        filter: drop-shadow(0 0 15px var(--color-secondary));
-      }
-
-      .team-card:hover .icon-glow-secondary {
-        filter: drop-shadow(0 0 25px var(--color-secondary));
+        transform: translateY(-8px);
       }
     `,
   ],

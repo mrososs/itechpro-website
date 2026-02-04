@@ -10,6 +10,10 @@ import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { DialogModule } from 'primeng/dialog';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { TextareaModule } from 'primeng/textarea';
 import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
 
 interface ChatMessage {
@@ -29,6 +33,14 @@ interface CompanyService {
   color: string;
 }
 
+interface ConsultationForm {
+  date: Date | null;
+  time: string | null;
+  name: string;
+  phone: string;
+  requirements: string;
+}
+
 @Component({
   selector: 'app-ai-agent',
   standalone: true,
@@ -38,24 +50,33 @@ interface CompanyService {
     InputTextModule,
     ButtonModule,
     CardModule,
+    DialogModule,
+    CalendarModule,
+    DropdownModule,
+    TextareaModule,
     GsapRevealDirective,
   ],
   template: `
     <!-- Hero Section -->
     <section
-      class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-bg via-surface to-bg pt-16"
+      class="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-bg pt-16"
     >
-      <!-- Background Elements -->
-      <div class="absolute inset-0">
+      <!-- Background Pattern -->
+      <div class="absolute inset-0 bg-pattern opacity-10"></div>
+
+      <!-- Gradient overlay -->
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-transparent via-bg/50 to-bg"
+      ></div>
+
+      <!-- Abstract Shapes -->
+      <div class="absolute inset-0 overflow-hidden pointer-events-none">
         <div
-          class="absolute top-20 left-10 w-72 h-72 bg-blue-primary/10 rounded-full blur-3xl animate-pulse"
+          class="absolute top-20 left-10 w-72 h-72 bg-gold/5 rounded-full blur-3xl animate-pulse"
         ></div>
         <div
-          class="absolute bottom-20 right-10 w-96 h-96 bg-green-accent/10 rounded-full blur-3xl animate-pulse"
+          class="absolute bottom-20 right-10 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse"
           style="animation-delay: 1s;"
-        ></div>
-        <div
-          class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-secondary/10 rounded-full blur-3xl animate-float"
         ></div>
       </div>
 
@@ -86,19 +107,19 @@ interface CompanyService {
           class="flex flex-wrap justify-center gap-4 text-sm text-white/60"
         >
           <span class="flex items-center">
-            <i class="pi pi-check-circle text-green-accent mr-2"></i>
-            Smart Hotel Solutions
+            <i class="pi pi-check-circle text-gold mr-2"></i>
+            Hotel Management Systems
           </span>
           <span class="flex items-center">
-            <i class="pi pi-check-circle text-green-accent mr-2"></i>
+            <i class="pi pi-check-circle text-gold mr-2"></i>
             Digital Transformation
           </span>
           <span class="flex items-center">
-            <i class="pi pi-check-circle text-green-accent mr-2"></i>
-            IoT Integration
+            <i class="pi pi-check-circle text-gold mr-2"></i>
+            System Integration
           </span>
           <span class="flex items-center">
-            <i class="pi pi-check-circle text-green-accent mr-2"></i>
+            <i class="pi pi-check-circle text-gold mr-2"></i>
             Custom Development
           </span>
         </div>
@@ -106,13 +127,14 @@ interface CompanyService {
     </section>
 
     <!-- AI Chat Interface -->
-    <section class="py-20 bg-surface bg-pattern">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-20 bg-bg relative">
+      <div class="absolute inset-0 bg-pattern opacity-5"></div>
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <!-- Chat Container -->
         <div
           gsapReveal="slide-up"
           [delay]="0.2"
-          class="bg-black/30 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-glow-primary"
+          class="glass-panel rounded-3xl p-6 box-glow"
         >
           <!-- Chat Header -->
           <div
@@ -120,7 +142,7 @@ interface CompanyService {
           >
             <div class="flex items-center space-x-3">
               <div
-                class="w-10 h-10  rounded-xl flex items-center justify-center"
+                class="w-10 h-10 rounded-xl flex items-center justify-center bg-white/5"
               >
                 <img
                   src="assets/img/logo.png"
@@ -138,10 +160,8 @@ interface CompanyService {
               </div>
             </div>
             <div class="flex items-center space-x-2">
-              <div
-                class="w-2 h-2 bg-green-accent rounded-full animate-pulse"
-              ></div>
-              <span class="text-green-accent text-sm">Online</span>
+              <div class="w-2 h-2 bg-gold rounded-full animate-pulse"></div>
+              <span class="text-gold text-sm">Online</span>
             </div>
           </div>
 
@@ -151,70 +171,75 @@ interface CompanyService {
             class="chat-messages h-96 overflow-y-auto mb-6 space-y-4 pr-2"
           >
             @if (messages.length === 0) {
-            <div class="text-center py-8">
-              <div
-                class="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto mb-4"
-              >
-                <i class="pi pi-comments text-white text-2xl"></i>
-              </div>
-              <h3 class="text-white font-semibold mb-2">
-                Start a Conversation
-              </h3>
-              <p class="text-white/60 text-sm">
-                Ask me about your project ideas, and I'll show you how we can
-                help!
-              </p>
-            </div>
-            } @else { @for (message of messages; track message.id) {
-            <div
-              class="flex"
-              [class]="
-                message.type === 'user' ? 'justify-end' : 'justify-start'
-              "
-            >
-              <div
-                class="max-w-xs lg:max-w-md px-4 py-3 rounded-2xl"
-                [class]="getMessageClasses(message.type)"
-              >
-                @if (message.type === 'ai') {
-                <div class="flex items-start space-x-2">
-                  <div
-                    class="w-6 h-6  rounded-lg flex items-center justify-center flex-shrink-0 mt-1"
-                  >
-                    <img
-                      src="assets/img/logo.png"
-                      alt="ITECHPRO Logo"
-                      class="h-4 w-auto"
-                    />
-                  </div>
-                  <div class="flex-1">
-                    <p class="text-sm" [innerHTML]="message.content"></p>
-                    @if (message.isTyping) {
-                    <div class="flex space-x-1 mt-2">
-                      <div
-                        class="w-2 h-2 bg-white/40 rounded-full animate-bounce"
-                      ></div>
-                      <div
-                        class="w-2 h-2 bg-white/40 rounded-full animate-bounce"
-                        style="animation-delay: 0.1s"
-                      ></div>
-                      <div
-                        class="w-2 h-2 bg-white/40 rounded-full animate-bounce"
-                        style="animation-delay: 0.2s"
-                      ></div>
-                    </div>
-                    }
-                  </div>
+              <div class="text-center py-8">
+                <div
+                  class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-white/10"
+                >
+                  <i class="pi pi-comments text-gold text-2xl icon-glow"></i>
                 </div>
-                } @else {
-                <p class="text-sm">{{ message.content }}</p>
-                }
-                <p class="text-xs opacity-60 mt-1">
-                  {{ message.timestamp | date : 'short' }}
+                <h3 class="text-white font-semibold mb-2">
+                  Start a Conversation
+                </h3>
+                <p class="text-white/60 text-sm">
+                  Ask me about your project ideas, and I'll show you how we can
+                  help!
                 </p>
               </div>
-            </div>
-            } }
+            } @else {
+              @for (message of messages; track message.id) {
+                <div
+                  class="flex"
+                  [class]="
+                    message.type === 'user' ? 'justify-end' : 'justify-start'
+                  "
+                >
+                  <div
+                    class="max-w-xs lg:max-w-md px-4 py-3 rounded-2xl"
+                    [class]="getMessageClasses(message.type)"
+                  >
+                    @if (message.type === 'ai') {
+                      <div class="flex items-start space-x-2">
+                        <div
+                          class="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0 mt-1 bg-white/10"
+                        >
+                          <img
+                            src="assets/img/logo.png"
+                            alt="ITECHPRO Logo"
+                            class="h-4 w-auto"
+                          />
+                        </div>
+                        <div class="flex-1">
+                          <div
+                            class="text-sm"
+                            [innerHTML]="message.content"
+                          ></div>
+                          @if (message.isTyping) {
+                            <div class="flex space-x-1 mt-2">
+                              <div
+                                class="w-2 h-2 bg-white/40 rounded-full animate-bounce"
+                              ></div>
+                              <div
+                                class="w-2 h-2 bg-white/40 rounded-full animate-bounce"
+                                style="animation-delay: 0.1s"
+                              ></div>
+                              <div
+                                class="w-2 h-2 bg-white/40 rounded-full animate-bounce"
+                                style="animation-delay: 0.2s"
+                              ></div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+                    } @else {
+                      <p class="text-sm">{{ message.content }}</p>
+                    }
+                    <p class="text-xs opacity-60 mt-1">
+                      {{ message.timestamp | date: 'short' }}
+                    </p>
+                  </div>
+                </div>
+              }
+            }
           </div>
 
           <!-- Chat Input -->
@@ -223,7 +248,7 @@ interface CompanyService {
               pInputText
               [(ngModel)]="userInput"
               placeholder="Ask me about your project ideas..."
-              class="flex-1"
+              class="flex-1 glass-input"
               (keyup.enter)="sendMessage()"
               [disabled]="isTyping"
             />
@@ -235,7 +260,7 @@ interface CompanyService {
               [loading]="isTyping"
               [disabled]="!userInput.trim() || isTyping"
               (onClick)="sendMessage()"
-              class="enhanced-primary-button"
+              class="enhanced-button"
             >
             </p-button>
           </div>
@@ -245,13 +270,13 @@ interface CompanyService {
             <p class="text-white/60 text-sm mb-3">Quick questions:</p>
             <div class="flex flex-wrap gap-2">
               @for (quickQuestion of quickQuestions; track quickQuestion) {
-              <button
-                (click)="sendQuickQuestion(quickQuestion)"
-                class="px-3 py-1 bg-white/10 hover:bg-white/20 text-white text-xs rounded-full transition-all duration-300"
-                [disabled]="isTyping"
-              >
-                {{ quickQuestion }}
-              </button>
+                <button
+                  (click)="sendQuickQuestion(quickQuestion)"
+                  class="px-3 py-1 bg-white/5 hover:bg-gold/20 hover:text-gold border border-white/10 hover:border-gold/30 text-white text-xs rounded-full transition-all duration-300"
+                  [disabled]="isTyping"
+                >
+                  {{ quickQuestion }}
+                </button>
               }
             </div>
           </div>
@@ -264,29 +289,136 @@ interface CompanyService {
           </h3>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @for (service of companyServices; track service.id) {
-            <div
-              class="bg-black/20 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all duration-300"
-            >
-              <div
-                class="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                [class]="service.color"
-              >
-                <i [class]="service.icon + ' text-white text-xl'"></i>
+              <div class="glass-panel p-6 rounded-2xl hover-card group">
+                <div
+                  class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110"
+                  [class]="service.color"
+                >
+                  <i
+                    [class]="service.icon + ' text-white text-xl icon-glow'"
+                  ></i>
+                </div>
+                <h4
+                  class="text-white font-semibold mb-2 group-hover:text-gold transition-colors"
+                >
+                  {{ service.name }}
+                </h4>
+                <p class="text-white/70 text-sm">{{ service.description }}</p>
               </div>
-              <h4 class="text-white font-semibold mb-2">{{ service.name }}</h4>
-              <p class="text-white/70 text-sm">{{ service.description }}</p>
-            </div>
             }
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA Section -->
-    <section
-      class="py-20 bg-gradient-to-r from-blue-primary/10 to-green-accent/10"
+    <!-- Consultation Dialog -->
+    <p-dialog
+      header="Schedule a Consultation"
+      [(visible)]="displayConsultationDialog"
+      [modal]="true"
+      [style]="{ width: '90%', maxWidth: '600px' }"
+      [draggable]="false"
+      [resizable]="false"
+      styleClass="glass-dialog"
     >
-      <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+      <div class="p-4" *ngIf="displayConsultationDialog">
+        <div class="grid gap-6">
+          <!-- Step 1: Date & Time -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="field">
+              <label class="block text-white mb-2 font-semibold"
+                >Select Date</label
+              >
+              <p-calendar
+                [(ngModel)]="consultationForm.date"
+                [minDate]="minDate"
+                [inline]="false"
+                styleClass="w-full"
+                inputStyleClass="glass-input w-full"
+                placeholder="Choose a date"
+                [showIcon]="true"
+              ></p-calendar>
+            </div>
+            <div class="field">
+              <label class="block text-white mb-2 font-semibold"
+                >Select Time</label
+              >
+              <p-dropdown
+                [options]="timeSlots"
+                [(ngModel)]="consultationForm.time"
+                placeholder="Choose a time slot"
+                styleClass="w-full glass-dropdown"
+                panelStyleClass="glass-dropdown-panel"
+              ></p-dropdown>
+            </div>
+          </div>
+
+          <!-- Step 2: Details -->
+          <div class="field">
+            <label class="block text-white mb-2 font-semibold">Your Name</label>
+            <input
+              pInputText
+              [(ngModel)]="consultationForm.name"
+              class="w-full glass-input"
+              placeholder="Enter your full name"
+            />
+          </div>
+
+          <div class="field">
+            <label class="block text-white mb-2 font-semibold"
+              >Phone Number</label
+            >
+            <input
+              pInputText
+              [(ngModel)]="consultationForm.phone"
+              class="w-full glass-input"
+              placeholder="Enter your phone number"
+            />
+          </div>
+
+          <div class="field">
+            <label class="block text-white mb-2 font-semibold"
+              >Project Requirements</label
+            >
+            <textarea
+              pInputTextarea
+              [(ngModel)]="consultationForm.requirements"
+              rows="4"
+              class="w-full glass-input"
+              placeholder="Tell us briefly about your project or needs..."
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <ng-template pTemplate="footer">
+        <div class="flex justify-end gap-3 mt-4">
+          <p-button
+            label="Cancel"
+            (onClick)="displayConsultationDialog = false"
+            styleClass="p-button-text text-white"
+          ></p-button>
+          <p-button
+            label="Confirm Booking"
+            icon="pi pi-check"
+            (onClick)="confirmConsultation()"
+            [disabled]="!isValidConsultationForm()"
+            styleClass="enhanced-primary-button"
+          ></p-button>
+        </div>
+      </ng-template>
+    </p-dialog>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-bg relative overflow-hidden">
+      <!-- Background Elements -->
+      <div class="absolute inset-0 bg-pattern opacity-5"></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-bg"
+      ></div>
+
+      <div
+        class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 relative z-10"
+      >
         <h2
           gsapReveal="slide-up"
           class="text-4xl lg:text-5xl font-bold text-white mb-6"
@@ -298,8 +430,8 @@ interface CompanyService {
           [delay]="0.2"
           class="text-xl text-white/70 mb-8"
         >
-          Let's discuss how ITECHPRO can transform your hospitality business
-          with cutting-edge technology.
+          Let's discuss how ITECHPRO can transform your hotel business with
+          cutting-edge technology.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <p-button
@@ -308,7 +440,8 @@ interface CompanyService {
             severity="primary"
             [rounded]="true"
             [outlined]="false"
-            class="text-lg px-8 py-4 enhanced-primary-button"
+            (onClick)="openConsultationDialog()"
+            class="text-lg px-8 py-4 enhanced-button"
           >
           </p-button>
           <p-button
@@ -318,7 +451,7 @@ interface CompanyService {
             [rounded]="true"
             [outlined]="true"
             routerLink="/contact"
-            class="text-lg px-8 py-4 enhanced-secondary-button"
+            class="text-lg px-8 py-4 enhanced-button-secondary"
           >
           </p-button>
         </div>
@@ -327,6 +460,8 @@ interface CompanyService {
   `,
   styles: [
     `
+      /* Example of component-specific styles if any remain.
+         Most generic styles have been moved to styles.scss for global theming. */
       :host {
         display: block;
       }
@@ -334,7 +469,7 @@ interface CompanyService {
       /* Chat Messages Styling */
       .chat-messages {
         scrollbar-width: thin;
-        scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+        scrollbar-color: rgba(212, 175, 55, 0.3) transparent;
       }
 
       .chat-messages::-webkit-scrollbar {
@@ -346,107 +481,124 @@ interface CompanyService {
       }
 
       .chat-messages::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.2);
+        background: rgba(212, 175, 55, 0.3);
         border-radius: 3px;
       }
 
       .chat-messages::-webkit-scrollbar-thumb:hover {
-        background: rgba(255, 255, 255, 0.3);
+        background: rgba(212, 175, 55, 0.5);
       }
 
-      /* PrimeNG Input Styling */
-      ::ng-deep .p-inputtext {
-        background: rgba(255, 255, 255, 0.05) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        color: white !important;
-        border-radius: 1rem !important;
-        backdrop-filter: blur(10px);
-        transition: all 0.3s ease !important;
-      }
-
-      ::ng-deep .p-inputtext:focus {
-        border-color: var(--color-primary) !important;
-        box-shadow: 0 0 0 3px rgba(0, 152, 238, 0.2) !important;
-        background: rgba(255, 255, 255, 0.08) !important;
-      }
-
-      ::ng-deep .p-inputtext::placeholder {
-        color: rgba(255, 255, 255, 0.5) !important;
-      }
-
-      /* PrimeNG Button Styling */
-      ::ng-deep .p-button {
-        border-radius: 1rem !important;
-        font-weight: 600 !important;
-        transition: all 0.3s ease !important;
-        position: relative;
-        overflow: hidden;
-      }
-
-      ::ng-deep .p-button::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
+      /* Enhanced Buttons for AI Agent - Override global if needed or keep here */
+      :host ::ng-deep .enhanced-button .p-button {
         background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(255, 255, 255, 0.2),
-          transparent
-        );
-        transition: left 0.5s;
+          135deg,
+          var(--color-primary),
+          #b8860b
+        ) !important;
+        border: none !important;
+        color: white !important;
+        padding: 1rem 2rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.5px !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
       }
 
-      ::ng-deep .p-button:hover::before {
-        left: 100%;
-      }
-
-      ::ng-deep .p-button:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 8px 25px var(--color-shadow-primary) !important;
-      }
-
-      /* Enhanced button styles */
-      .enhanced-primary-button {
-        box-shadow: 0 4px 15px rgba(0, 152, 238, 0.3),
-          0 8px 25px rgba(0, 152, 238, 0.2);
-        transition: all 0.3s ease;
-      }
-
-      .enhanced-primary-button:hover {
-        box-shadow: 0 8px 25px rgba(0, 152, 238, 0.4),
-          0 12px 35px rgba(0, 152, 238, 0.3);
+      :host ::ng-deep .enhanced-button .p-button:hover {
         transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
       }
 
-      .enhanced-secondary-button {
-        box-shadow: 0 4px 15px rgba(0, 240, 66, 0.3),
-          0 8px 25px rgba(0, 240, 66, 0.2);
-        transition: all 0.3s ease;
+      :host ::ng-deep .enhanced-button-secondary .p-button {
+        background: transparent !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        color: white !important;
+        padding: 1rem 2rem !important;
+        transition: all 0.3s ease !important;
       }
 
-      .enhanced-secondary-button:hover {
-        box-shadow: 0 8px 25px rgba(0, 240, 66, 0.4),
-          0 12px 35px rgba(0, 240, 66, 0.3);
-        transform: translateY(-2px);
+      /* In light mode, secondary button needs to be visible */
+      :host-context(.light-theme)
+        ::ng-deep
+        .enhanced-button-secondary
+        .p-button,
+      :host ::ng-deep .light-theme .enhanced-button-secondary .p-button {
+        border-color: rgba(0, 0, 0, 0.2) !important;
+        color: var(--color-text) !important;
+      }
+
+      :host ::ng-deep .enhanced-button-secondary .p-button:hover {
+        border-color: var(--color-primary) !important;
+        color: var(--color-primary) !important;
+        background: rgba(212, 175, 55, 0.05) !important;
       }
 
       /* Message styling */
       .message-user {
         background: linear-gradient(
           135deg,
-          var(--color-primary),
-          var(--color-secondary)
+          rgba(212, 175, 55, 0.8),
+          rgba(184, 134, 11, 0.8)
         );
         color: white;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
       }
 
       .message-ai {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.05); /* Default Dark */
         color: white;
         border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
+      }
+
+      /* Light Mode Message Overrides */
+      :host-context(.light-theme) .message-ai,
+      :host-context(body.light-theme) .message-ai {
+        background: rgba(0, 0, 0, 0.05);
+        color: var(--color-text);
+        border-color: rgba(0, 0, 0, 0.1);
+      }
+
+      .box-glow {
+        box-shadow:
+          0 0 20px rgba(0, 0, 0, 0.2),
+          0 0 1px rgba(212, 175, 55, 0.3);
+      }
+
+      .icon-glow {
+        filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4));
+      }
+
+      .glass-panel {
+        /* This is now global, but if we keep it here it overrides. 
+           We should let global handle it or refine. 
+           Let's keep it here but add light override if not handled globally perfectly yet */
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      :host-context(.light-theme) .glass-panel {
+        background: rgba(255, 255, 255, 0.8);
+        border-color: rgba(0, 0, 0, 0.05);
+      }
+
+      .hover-card {
+        transition: all 0.3s ease;
+      }
+
+      .hover-card:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(212, 175, 55, 0.3);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      :host-context(.light-theme) .hover-card:hover {
+        background: rgba(255, 255, 255, 1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       }
 
       /* Responsive adjustments */
@@ -465,9 +617,30 @@ export class AiAgentComponent implements OnInit, AfterViewChecked {
   isTyping = false;
   messages: ChatMessage[] = [];
 
+  // Consultation Form Data
+  displayConsultationDialog = false;
+  minDate = new Date();
+  consultationForm: ConsultationForm = {
+    date: null,
+    time: null,
+    name: '',
+    phone: '',
+    requirements: '',
+  };
+
+  timeSlots = [
+    { label: '09:00 AM', value: '09:00' },
+    { label: '10:00 AM', value: '10:00' },
+    { label: '11:00 AM', value: '11:00' },
+    { label: '01:00 PM', value: '13:00' },
+    { label: '02:00 PM', value: '14:00' },
+    { label: '03:00 PM', value: '15:00' },
+    { label: '04:00 PM', value: '16:00' },
+  ];
+
   quickQuestions = [
     'Smart hotel solutions?',
-    'IoT integration?',
+    'System integration?',
     'Digital transformation?',
     'Custom development?',
     'Mobile app development?',
@@ -478,10 +651,11 @@ export class AiAgentComponent implements OnInit, AfterViewChecked {
     {
       id: 'smart-hotels',
       name: 'Smart Hotel Solutions',
-      description: 'Complete IoT integration for modern hospitality management',
-      keywords: ['hotel', 'iot', 'smart', 'automation', 'hospitality'],
+      description:
+        'Complete system integration for modern hospitality management',
+      keywords: ['hotel', 'smart', 'automation', 'hospitality', 'system'],
       icon: 'pi pi-building',
-      color: 'bg-blue-primary/20',
+      color: 'bg-gold/10',
     },
     {
       id: 'digital-transformation',
@@ -496,7 +670,7 @@ export class AiAgentComponent implements OnInit, AfterViewChecked {
         'upgrade',
       ],
       icon: 'pi pi-cog',
-      color: 'bg-green-accent/20',
+      color: 'bg-white/10',
     },
     {
       id: 'mobile-apps',
@@ -504,7 +678,7 @@ export class AiAgentComponent implements OnInit, AfterViewChecked {
       description: 'Custom mobile apps for iOS and Android platforms',
       keywords: ['mobile', 'app', 'ios', 'android', 'application'],
       icon: 'pi pi-mobile',
-      color: 'bg-blue-secondary/20',
+      color: 'bg-gold/10',
     },
     {
       id: 'web-development',
@@ -512,7 +686,7 @@ export class AiAgentComponent implements OnInit, AfterViewChecked {
       description: 'Responsive web applications and e-commerce solutions',
       keywords: ['web', 'website', 'ecommerce', 'online', 'responsive'],
       icon: 'pi pi-globe',
-      color: 'bg-purple-500/20',
+      color: 'bg-white/10',
     },
     {
       id: 'data-analytics',
@@ -526,7 +700,7 @@ export class AiAgentComponent implements OnInit, AfterViewChecked {
         'reporting',
       ],
       icon: 'pi pi-chart-bar',
-      color: 'bg-orange-500/20',
+      color: 'bg-gold/10',
     },
     {
       id: 'cloud-solutions',
@@ -534,7 +708,7 @@ export class AiAgentComponent implements OnInit, AfterViewChecked {
       description: 'Scalable cloud infrastructure and deployment',
       keywords: ['cloud', 'aws', 'azure', 'deployment', 'infrastructure'],
       icon: 'pi pi-cloud',
-      color: 'bg-cyan-500/20',
+      color: 'bg-white/10',
     },
   ];
 
@@ -546,20 +720,57 @@ export class AiAgentComponent implements OnInit, AfterViewChecked {
     this.scrollToBottom();
   }
 
+  // Consultation Methods
+  openConsultationDialog() {
+    this.displayConsultationDialog = true;
+  }
+
+  isValidConsultationForm(): boolean {
+    return !!(
+      this.consultationForm.date &&
+      this.consultationForm.time &&
+      this.consultationForm.name.trim() &&
+      this.consultationForm.phone.trim()
+    );
+  }
+
+  confirmConsultation() {
+    // In a real app, this would submit to backend
+    this.displayConsultationDialog = false;
+
+    // Add success message to chat
+    const successMessage: ChatMessage = {
+      id: this.generateId(),
+      type: 'ai',
+      content: `I've successfully scheduled your consultation for ${this.consultationForm.date?.toLocaleDateString()} at ${this.consultationForm.time}. We'll contact you at ${this.consultationForm.phone} shortly to confirm details. Thank you!`,
+      timestamp: new Date(),
+    };
+    this.messages.push(successMessage);
+
+    // Reset form
+    this.consultationForm = {
+      date: null,
+      time: null,
+      name: '',
+      phone: '',
+      requirements: '',
+    };
+  }
+
   private addWelcomeMessage() {
     const welcomeMessage: ChatMessage = {
       id: this.generateId(),
       type: 'ai',
       content: `Hello! I'm your ITECHPRO AI Assistant. I'm here to help you understand how our company can assist with your project ideas and business needs. 
-
+<br><br>
 What would you like to know about? I can help you with:
-• Smart hotel solutions and IoT integration
-• Digital transformation strategies
-• Custom software development
-• Mobile and web applications
-• Data analytics and business intelligence
-• Cloud solutions and deployment
-
+<br>• Smart hotel solutions and system integration
+<br>• Digital transformation strategies
+<br>• Custom software development
+<br>• Mobile and web applications
+<br>• Data analytics and business intelligence
+<br>• Cloud solutions and deployment
+<br><br>
 Just ask me anything about your project, and I'll show you how ITECHPRO can help bring your vision to life!`,
       timestamp: new Date(),
     };
@@ -582,9 +793,12 @@ Just ask me anything about your project, and I'll show you how ITECHPRO can help
     this.isTyping = true;
 
     // Simulate AI thinking time
-    setTimeout(() => {
-      this.generateAIResponse(userInput);
-    }, 1000 + Math.random() * 2000);
+    setTimeout(
+      () => {
+        this.generateAIResponse(userInput);
+      },
+      1000 + Math.random() * 2000,
+    );
   }
 
   sendQuickQuestion(question: string) {
@@ -609,7 +823,7 @@ Just ask me anything about your project, and I'll show you how ITECHPRO can help
     // Simulate typing effect
     setTimeout(() => {
       const messageIndex = this.messages.findIndex(
-        (m) => m.id === aiMessage.id
+        (m) => m.id === aiMessage.id,
       );
       if (messageIndex !== -1) {
         this.messages[messageIndex].isTyping = false;
@@ -622,7 +836,7 @@ Just ask me anything about your project, and I'll show you how ITECHPRO can help
 
     // Find matching services
     const matchingServices = this.companyServices.filter((service) =>
-      service.keywords.some((keyword) => lowerInput.includes(keyword))
+      service.keywords.some((keyword) => lowerInput.includes(keyword)),
     );
 
     if (matchingServices.length > 0) {
@@ -633,13 +847,13 @@ Just ask me anything about your project, and I'll show you how ITECHPRO can help
     // General responses based on common queries
     if (lowerInput.includes('price') || lowerInput.includes('cost')) {
       return `Great question about pricing! Our solutions are tailored to your specific needs and project scope. 
-
+<br><br>
 We offer:
-• <strong>Free consultation</strong> to understand your requirements
-• <strong>Custom quotes</strong> based on your project complexity
-• <strong>Flexible payment plans</strong> for larger projects
-• <strong>Competitive rates</strong> with no hidden fees
-
+<br>• <strong>Free consultation</strong> to understand your requirements
+<br>• <strong>Custom quotes</strong> based on your project complexity
+<br>• <strong>Flexible payment plans</strong> for larger projects
+<br>• <strong>Competitive rates</strong> with no hidden fees
+<br><br>
 I'd recommend scheduling a consultation with our team to discuss your specific project and get a detailed quote. Would you like me to help you understand what factors influence the pricing for your type of project?`;
     }
 
@@ -649,218 +863,181 @@ I'd recommend scheduling a consultation with our team to discuss your specific p
       lowerInput.includes('how long')
     ) {
       return `Project timelines vary based on complexity and requirements. Here's a general overview:
-
+<br><br>
 • <strong>Small projects</strong> (websites, simple apps): 2-4 weeks
-• <strong>Medium projects</strong> (custom applications): 1-3 months  
-• <strong>Large projects</strong> (enterprise solutions): 3-6 months
-• <strong>Smart hotel systems</strong>: 2-4 months depending on property size
-
+<br>• <strong>Medium projects</strong> (custom applications): 1-3 months  
+<br>• <strong>Large projects</strong> (enterprise solutions): 3-6 months
+<br>• <strong>Smart hotel systems</strong>: 2-4 months depending on property size
+<br><br>
 We always provide detailed project timelines during our consultation phase. Our agile development approach ensures regular updates and the ability to adjust timelines as needed.
-
+<br><br>
 What type of project are you considering? I can give you a more specific timeline estimate.`;
     }
 
     if (lowerInput.includes('support') || lowerInput.includes('maintenance')) {
       return `We provide comprehensive support and maintenance services:
-
+<br><br>
 • <strong>24/7 Technical Support</strong> for critical systems
-• <strong>Regular maintenance</strong> and updates
-• <strong>Performance monitoring</strong> and optimization
-• <strong>Security updates</strong> and patches
-• <strong>Training sessions</strong> for your team
-• <strong>Documentation</strong> and user guides
-
+<br>• <strong>Regular maintenance</strong> and updates
+<br>• <strong>Performance monitoring</strong> and optimization
+<br>• <strong>Security updates</strong> and patches
+<br>• <strong>Training sessions</strong> for your team
+<br>• <strong>Documentation</strong> and user guides
+<br><br>
 Our support packages are designed to keep your systems running smoothly and securely. We offer different support tiers based on your needs and budget.
-
+<br><br>
 Would you like to know more about our specific support packages?`;
     }
 
     // Default response
     return `Thank you for your question! Based on what you've shared, I can see you're interested in exploring how ITECHPRO can help with your project.
-
+<br><br>
 Here's how we typically approach new projects:
-
+<br><br>
 1. <strong>Discovery Phase</strong> - We understand your goals and requirements
-2. <strong>Solution Design</strong> - We create a tailored approach for your needs  
-3. <strong>Development</strong> - Our expert team builds your solution
-4. <strong>Testing & Deployment</strong> - We ensure everything works perfectly
-5. <strong>Ongoing Support</strong> - We're here for long-term success
-
+<br>2. <strong>Solution Design</strong> - We create a tailored approach for your needs  
+<br>3. <strong>Development</strong> - Our expert team builds your solution
+<br>4. <strong>Testing & Deployment</strong> - We ensure everything works perfectly
+<br>5. <strong>Ongoing Support</strong> - We're here for long-term success
+<br><br>
 Our expertise includes:
-• Smart hotel and hospitality solutions
-• Custom software development
-• Mobile and web applications
-• IoT integration and automation
-• Data analytics and business intelligence
-• Cloud solutions and infrastructure
-
+<br>• Smart hotel and hospitality solutions
+<br>• Custom software development
+<br>• Mobile and web applications
+<br>• System integration and automation
+<br>• Data analytics and business intelligence
+<br>• Cloud solutions and infrastructure
+<br><br>
 Would you like to schedule a consultation to discuss your specific project in more detail? I can also provide more information about any of these areas.`;
   }
 
   private generateServiceResponse(
     service: CompanyService,
-    input: string
+    input: string,
   ): string {
-    const responses = {
+    const responses: any = {
       'smart-hotels': `Excellent! Smart hotel solutions are one of our specialties. We can help you transform your hospitality business with:
-
+<br><br>
 <strong>Key Features:</strong>
-• IoT device integration (smart locks, thermostats, lighting)
-• Guest mobile app with check-in/out capabilities
-• Room automation and energy management
-• Real-time analytics and reporting
-• Integration with existing hotel management systems
-
+<br>• System integration (PMS, POS, Access Control)
+<br>• Guest mobile app with check-in/out capabilities
+<br>• Room automation and energy management
+<br>• Real-time analytics and reporting
+<br>• Integration with existing hotel management systems
+<br><br>
 <strong>Benefits:</strong>
-• Enhanced guest experience
-• Reduced operational costs
-• Improved energy efficiency
-• Better staff productivity
-• Data-driven decision making
-
+<br>• Enhanced guest experience
+<br>• Reduced operational costs
+<br>• Improved energy efficiency
+<br>• Better staff productivity
+<br>• Data-driven decision making
+<br><br>
 We've successfully implemented smart hotel solutions for properties ranging from boutique hotels to large resorts. Our solutions are scalable and can grow with your business.
-
+<br><br>
 What specific aspects of smart hotel technology interest you most?`,
 
       'digital-transformation': `Perfect! Digital transformation is crucial for staying competitive in today's market. Here's how we can help:
-
+<br><br>
 <strong>Our Approach:</strong>
-• Assessment of your current systems and processes
-• Strategic roadmap for digital transformation
-• Modern technology stack implementation
-• Staff training and change management
-• Ongoing optimization and support
-
+<br>• Assessment of your current systems and processes
+<br>• Strategic roadmap for digital transformation
+<br>• Modern technology stack implementation
+<br>• Staff training and change management
+<br>• Ongoing optimization and support
+<br><br>
 <strong>Common Solutions:</strong>
-• Legacy system modernization
-• Cloud migration and infrastructure
-• Process automation and workflow optimization
-• Data integration and analytics
-• Customer experience enhancement
-
+<br>• Legacy system modernization
+<br>• Cloud migration and infrastructure
+<br>• Process automation and workflow optimization
+<br>• Data integration and analytics
+<br>• Customer experience enhancement
+<br><br>
 We understand that digital transformation can be overwhelming, which is why we provide comprehensive support throughout the entire process.
-
+<br><br>
 What areas of your business are you looking to transform digitally?`,
 
       'mobile-apps': `Great choice! Mobile applications are essential for modern businesses. We develop:
-
+<br><br>
 <strong>App Types:</strong>
-• Native iOS and Android applications
-• Cross-platform solutions (React Native, Flutter)
-• Progressive Web Apps (PWAs)
-• Enterprise mobile solutions
-• E-commerce and marketplace apps
-
+<br>• Native iOS and Android applications
+<br>• Cross-platform solutions (React Native, Flutter)
+<br>• Progressive Web Apps (PWAs)
+<br>• Enterprise mobile solutions
+<br>• E-commerce and marketplace apps
+<br><br>
 <strong>Our Process:</strong>
-• User experience (UX) design and research
-• Prototyping and user testing
-• Development with modern frameworks
-• Quality assurance and testing
-• App store deployment and optimization
-
+<br>• User experience (UX) design and research
+<br>• Prototyping and user testing
+<br>• Development with modern frameworks
+<br>• Quality assurance and testing
+<br>• App store deployment and optimization
+<br><br>
 <strong>Industries We Serve:</strong>
-• Hospitality and tourism
-• Healthcare and wellness
-• E-commerce and retail
-• Education and training
-• Business and productivity
-
+<br>• Hospitality and tourism
+<br>• Healthcare and wellness
+<br>• E-commerce and retail
+<br>• Education and training
+<br>• Business and productivity
+<br><br>
 What type of mobile app are you considering? I can provide more specific guidance based on your needs.`,
 
       'web-development': `Excellent! Web development is fundamental to your online presence. We create:
-
+<br><br>
 <strong>Web Solutions:</strong>
-• Responsive websites and web applications
-• E-commerce platforms and online stores
-• Content management systems (CMS)
-• Custom web portals and dashboards
-• API development and integration
+<br>• Responsive websites and web applications
+<br>• E-commerce platforms and online stores
+<br>• Content management systems (CMS)
+<br>• Custom web portals and dashboards
+<br><br>
+We focus on creating fast, secure, and user-friendly web experiences that drive results.
+<br><br>
+Do you have a specific web project in mind?`,
 
-<strong>Technologies We Use:</strong>
-• Modern frameworks (Angular, React, Vue.js)
-• Backend development (Node.js, Python, .NET)
-• Database design and optimization
-• Cloud deployment and hosting
-• SEO optimization and performance tuning
-
-<strong>Key Features:</strong>
-• Mobile-first responsive design
-• Fast loading times and optimization
-• Security and data protection
-• Scalable architecture
-• Analytics and reporting integration
-
-What type of web solution are you looking for? I can help you understand the best approach for your specific needs.`,
-
-      'data-analytics': `Fantastic! Data analytics can transform how you make business decisions. We provide:
-
+      'data-analytics': `Data is your most valuable asset. We help you unlock its potential with:
+<br><br>
 <strong>Analytics Solutions:</strong>
-• Business intelligence dashboards
-• Real-time data visualization
-• Predictive analytics and forecasting
-• Customer behavior analysis
-• Performance monitoring and KPI tracking
+<br>• Custom dashboard development
+<br>• Business intelligence (BI) implementation
+<br>• Data visualization and reporting
+<br>• Predictive analytics and forecasting
+<br>• User behavior tracking
+<br><br>
+Our solutions help you make informed, data-driven decisions to grow your business.
+<br><br>
+What kind of data are you looking to analyze?`,
 
-<strong>Data Sources We Integrate:</strong>
-• Customer databases and CRM systems
-• Website and app analytics
-• Social media and marketing data
-• IoT sensors and device data
-• Financial and operational systems
-
-<strong>Benefits:</strong>
-• Data-driven decision making
-• Improved operational efficiency
-• Better customer insights
-• Competitive advantage
-• Cost reduction and optimization
-
-What type of data are you looking to analyze? I can help you understand how to extract valuable insights from your information.`,
-
-      'cloud-solutions': `Perfect! Cloud solutions provide scalability, security, and cost-effectiveness. We offer:
-
+      'cloud-solutions': `Cloud infrastructure provides the scalability and reliability modern businesses need. We offer:
+<br><br>
 <strong>Cloud Services:</strong>
-• Cloud migration and strategy
-• Infrastructure as a Service (IaaS)
-• Platform as a Service (PaaS)
-• Software as a Service (SaaS) solutions
-• Hybrid and multi-cloud architectures
-
-<strong>Cloud Providers:</strong>
-• Amazon Web Services (AWS)
-• Microsoft Azure
-• Google Cloud Platform (GCP)
-• Private cloud solutions
-• Cloud security and compliance
-
-<strong>Benefits:</strong>
-• Scalable infrastructure
-• Reduced IT costs
-• Enhanced security and compliance
-• Disaster recovery and backup
-• Global accessibility and performance
-
-What type of cloud solution are you considering? I can help you understand the best cloud strategy for your business needs.`,
+<br>• Cloud migration strategies
+<br>• Serverless architecture design
+<br>• DevOps and CI/CD pipelines
+<br>• Database management and optimization
+<br>• Security and compliance auditing
+<br><br>
+We work with major cloud providers including AWS, Azure, and Google Cloud to build the best infrastructure for your needs.
+<br><br>
+Are you currently using cloud services or looking to migrate?`,
     };
 
     return (
-      responses[service.id as keyof typeof responses] ||
-      this.createAIResponse(input)
+      responses[service.id] ||
+      `I'd be happy to tell you more about our ${service.name} services. Could you provide a bit more detail about what you're looking for?`
     );
+  }
+
+  private scrollToBottom() {
+    try {
+      this.chatContainer.nativeElement.scrollTop =
+        this.chatContainer.nativeElement.scrollHeight;
+    } catch (err) {}
   }
 
   getMessageClasses(type: 'user' | 'ai'): string {
     return type === 'user' ? 'message-user' : 'message-ai';
   }
 
-  private scrollToBottom() {
-    if (this.chatContainer) {
-      this.chatContainer.nativeElement.scrollTop =
-        this.chatContainer.nativeElement.scrollHeight;
-    }
-  }
-
-  private generateId(): string {
-    return Math.random().toString(36).substr(2, 9);
+  generateId(): string {
+    return Math.random().toString(36).substring(2, 9);
   }
 }

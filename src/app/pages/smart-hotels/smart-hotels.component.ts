@@ -21,17 +21,15 @@ import { GsapParallaxDirective } from '../../directives/gsap-parallax.directive'
   template: `
     <!-- Hero Section -->
     <section
-      class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-bg via-surface to-bg pt-16"
+      class="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-bg pt-16"
     >
-      <!-- Background Elements -->
-      <div class="absolute inset-0">
-        <div
-          class="absolute top-20 left-10 w-72 h-72 bg-blue-primary/10 rounded-full blur-3xl"
-        ></div>
-        <div
-          class="absolute bottom-20 right-10 w-96 h-96 bg-green-accent/10 rounded-full blur-3xl"
-        ></div>
-      </div>
+      <!-- Background Pattern -->
+      <div class="absolute inset-0 bg-pattern opacity-10"></div>
+
+      <!-- Gradient overlay -->
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-transparent via-bg/50 to-bg"
+      ></div>
 
       <div
         class="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto"
@@ -41,19 +39,19 @@ import { GsapParallaxDirective } from '../../directives/gsap-parallax.directive'
           [delay]="0.2"
           class="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight"
         >
-          <span class="text-blue-primary">{{
-            smartHotelsData?.hero?.title || 'Smart Hotels Suite'
+          <span class="gradient-text-primary">{{
+            smartHotelsData?.hero?.title || 'Hospitality Intelligence Suite'
           }}</span>
         </h1>
 
         <p
           gsapReveal="slide-up"
           [delay]="0.4"
-          class="text-xl sm:text-2xl text-white/80 mb-8 max-w-4xl mx-auto leading-relaxed"
+          class="text-xl sm:text-2xl text-white/80 mb-8 max-w-4xl mx-auto leading-relaxed font-light"
         >
           {{
             smartHotelsData?.hero?.subtitle ||
-              'Websites & Booking • PMS • Digital Keys • IoT • Analytics & More'
+              'Websites & Booking • PMS Integration • Digital Keys • Business Analytics • Staff Mobility'
           }}
         </p>
 
@@ -62,10 +60,11 @@ import { GsapParallaxDirective } from '../../directives/gsap-parallax.directive'
             label="{{ smartHotelsData?.hero?.cta || 'Book a discovery call' }}"
             icon="pi pi-calendar"
             severity="primary"
-            [rounded]="true"
+            [rounded]="false"
             [outlined]="false"
             routerLink="/contact"
-            class="text-lg px-8 py-4"
+            class="enhanced-primary-button"
+            styleClass="text-lg px-8 py-4 uppercase tracking-widest font-bold"
           >
           </p-button>
         </div>
@@ -73,13 +72,17 @@ import { GsapParallaxDirective } from '../../directives/gsap-parallax.directive'
     </section>
 
     <!-- Split Section: For Hotels vs For Guests -->
-    <section class="py-20 bg-surface">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-20 bg-surface relative">
+      <div class="absolute inset-0 bg-pattern opacity-5"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <!-- For Hotels -->
-          <div gsapReveal="slide-up">
-            <h2 class="text-4xl lg:text-5xl font-bold text-white mb-8">
-              For <span class="text-primary">Hotels</span>
+          <div
+            gsapReveal="slide-up"
+            class="glass-panel p-8 rounded-3xl border border-white/5"
+          >
+            <h2 class="text-3xl lg:text-4xl font-bold text-white mb-8">
+              For <span class="gradient-text-primary">Hotels</span>
             </h2>
             <div class="space-y-6">
               <div
@@ -87,7 +90,7 @@ import { GsapParallaxDirective } from '../../directives/gsap-parallax.directive'
                 class="flex items-start space-x-4"
               >
                 <div
-                  class="w-2 h-2 bg-primary rounded-full mt-3 flex-shrink-0"
+                  class="w-2 h-2 bg-gold rounded-full mt-3 flex-shrink-0 box-glow"
                 ></div>
                 <span class="text-white/80 text-lg">{{ benefit }}</span>
               </div>
@@ -95,9 +98,13 @@ import { GsapParallaxDirective } from '../../directives/gsap-parallax.directive'
           </div>
 
           <!-- For Guests -->
-          <div gsapReveal="slide-up" [delay]="0.2">
-            <h2 class="text-4xl lg:text-5xl font-bold text-white mb-8">
-              For <span class="text-accent">Guests</span>
+          <div
+            gsapReveal="slide-up"
+            [delay]="0.2"
+            class="glass-panel p-8 rounded-3xl border border-white/5"
+          >
+            <h2 class="text-3xl lg:text-4xl font-bold text-white mb-8">
+              For <span class="gradient-text-primary">Guests</span>
             </h2>
             <div class="space-y-6">
               <div
@@ -105,7 +112,7 @@ import { GsapParallaxDirective } from '../../directives/gsap-parallax.directive'
                 class="flex items-start space-x-4"
               >
                 <div
-                  class="w-2 h-2 bg-accent rounded-full mt-3 flex-shrink-0"
+                  class="w-2 h-2 bg-white rounded-full mt-3 flex-shrink-0"
                 ></div>
                 <span class="text-white/80 text-lg">{{ benefit }}</span>
               </div>
@@ -116,22 +123,25 @@ import { GsapParallaxDirective } from '../../directives/gsap-parallax.directive'
     </section>
 
     <!-- Features Grid -->
-    <section class="py-20 bg-bg">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-20 bg-bg relative">
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-bg to-surface opacity-50"
+      ></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-16">
           <h2
             gsapReveal="slide-up"
             class="text-4xl lg:text-5xl font-bold text-white mb-6"
           >
-            Complete Smart Hotels Solution
+            Complete Management Solution
           </h2>
           <p
             gsapReveal="slide-up"
             [delay]="0.2"
             class="text-xl text-white/70 max-w-3xl mx-auto"
           >
-            Everything you need to transform your hotel into a smart, connected
-            experience
+            Everything you need to transform your hotel into a high-performance,
+            data-driven business
           </p>
         </div>
 
@@ -140,22 +150,22 @@ import { GsapParallaxDirective } from '../../directives/gsap-parallax.directive'
             *ngFor="let feature of smartHotelsData?.features; let i = index"
             gsapReveal="scale"
             [delay]="i * 0.1"
-            class="feature-card group"
+            class="feature-card group h-full"
           >
             <div
-              class="bg-black/20 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 hover:scale-105 h-full"
+              class="glass-hover bg-surface/30 backdrop-blur-md border border-white/5 rounded-2xl p-8 hover:border-gold/30 transition-all duration-300 hover:shadow-glow h-full flex flex-col"
             >
               <div
-                class="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary/30 transition-colors duration-300"
+                class="w-16 h-16 bg-gradient-to-br from-gold/20 to-gold/5 rounded-xl flex items-center justify-center mb-6 group-hover:bg-gold/30 transition-colors duration-300 icon-glow"
               >
-                <i class="pi pi-star text-2xl text-primary"></i>
+                <i class="pi pi-star text-2xl text-gold"></i>
               </div>
               <h3
-                class="text-xl font-semibold text-white mb-4 group-hover:text-primary transition-colors duration-300"
+                class="text-xl font-bold text-white mb-4 group-hover:text-gold transition-colors duration-300"
               >
                 {{ feature.title }}
               </h3>
-              <p class="text-white/70 leading-relaxed">
+              <p class="text-white/60 leading-relaxed text-sm">
                 {{ feature.desc }}
               </p>
             </div>
@@ -165,9 +175,11 @@ import { GsapParallaxDirective } from '../../directives/gsap-parallax.directive'
     </section>
 
     <!-- Device Mockups Section -->
-    <section class="py-20 bg-surface">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
+    <section class="py-32 bg-surface relative overflow-hidden">
+      <div class="absolute inset-0 bg-pattern opacity-5"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-20">
           <h2
             gsapReveal="slide-up"
             class="text-4xl lg:text-5xl font-bold text-white mb-6"
@@ -189,19 +201,25 @@ import { GsapParallaxDirective } from '../../directives/gsap-parallax.directive'
             gsapReveal="slide-up"
             [delay]="0.1"
             gsapParallax="y"
-            [speed]="0.2"
-            class="device-mockup"
+            [speed]="0.1"
+            class="device-mockup h-full"
           >
             <div
-              class="bg-black/20 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center"
+              class="bg-surface/40 backdrop-blur-md border border-white/5 rounded-2xl p-8 text-center h-full hover:border-blue-500/30 transition-all duration-300 flex flex-col justify-between"
             >
-              <div
-                class="w-32 h-64 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl mx-auto mb-4 flex items-center justify-center"
-              >
-                <i class="pi pi-mobile text-4xl text-primary"></i>
+              <div class="flex-grow flex items-center justify-center mb-6">
+                <div
+                  class="w-32 h-64 bg-gradient-to-br from-blue-500/10 to-transparent rounded-3xl flex items-center justify-center border border-white/10"
+                >
+                  <i class="pi pi-mobile text-5xl text-blue-400"></i>
+                </div>
               </div>
-              <h3 class="text-lg font-semibold text-white mb-2">Mobile App</h3>
-              <p class="text-white/70 text-sm">Guest booking & room control</p>
+              <div class="mt-auto">
+                <h3 class="text-lg font-bold text-white mb-2">Mobile App</h3>
+                <p class="text-white/60 text-sm">
+                  Guest booking & room control
+                </p>
+              </div>
             </div>
           </div>
 
@@ -210,44 +228,60 @@ import { GsapParallaxDirective } from '../../directives/gsap-parallax.directive'
             gsapReveal="slide-up"
             [delay]="0.2"
             gsapParallax="y"
-            [speed]="0.3"
-            class="device-mockup"
+            [speed]="0.2"
+            class="device-mockup h-full"
           >
             <div
-              class="bg-black/20 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center"
+              class="bg-surface/40 backdrop-blur-md border border-white/5 rounded-2xl p-8 text-center h-full hover:border-green-500/30 transition-all duration-300 flex flex-col justify-between"
             >
-              <div
-                class="w-48 h-32 bg-gradient-to-br from-accent/20 to-primary/20 rounded-2xl mx-auto mb-4 flex items-center justify-center"
-              >
-                <i class="pi pi-tablet text-4xl text-accent"></i>
+              <div class="flex-grow flex items-center justify-center mb-6">
+                <!-- Wrapper to ensure height matches phone interaction if needed, or just center -->
+                <!-- We force a min-height container to align with the phone's 64 height visual if they are side by side? 
+                     Actually, just centering nicely in flex-grow space works best for responsive. 
+                     But the user complained about alignment. Let's make the container h-64 to match. -->
+                <div class="h-64 flex items-center justify-center">
+                  <div
+                    class="w-48 h-32 bg-gradient-to-br from-green-500/10 to-transparent rounded-2xl flex items-center justify-center border border-white/10"
+                  >
+                    <i class="pi pi-tablet text-5xl text-green-400"></i>
+                  </div>
+                </div>
               </div>
-              <h3 class="text-lg font-semibold text-white mb-2">
-                Hotel Dashboard
-              </h3>
-              <p class="text-white/70 text-sm">
-                Real-time operations & analytics
-              </p>
+              <div class="mt-auto">
+                <h3 class="text-lg font-bold text-white mb-2">
+                  Hotel Dashboard
+                </h3>
+                <p class="text-white/60 text-sm">
+                  Real-time operations & analytics
+                </p>
+              </div>
             </div>
           </div>
 
-          <!-- Smart Room Mockup -->
+          <!-- Staff Mobile Mockup -->
           <div
             gsapReveal="slide-up"
             [delay]="0.3"
             gsapParallax="y"
-            [speed]="0.4"
-            class="device-mockup"
+            [speed]="0.3"
+            class="device-mockup h-full"
           >
             <div
-              class="bg-black/20 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center"
+              class="bg-surface/40 backdrop-blur-md border border-white/5 rounded-2xl p-8 text-center h-full hover:border-blue-500/30 transition-all duration-300 flex flex-col justify-between"
             >
-              <div
-                class="w-32 h-32 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full mx-auto mb-4 flex items-center justify-center"
-              >
-                <i class="pi pi-home text-4xl text-primary"></i>
+              <div class="flex-grow flex items-center justify-center mb-6">
+                <div
+                  class="w-32 h-64 bg-gradient-to-br from-blue-500/10 to-transparent rounded-3xl flex items-center justify-center border border-white/10"
+                >
+                  <i class="pi pi-users text-5xl text-blue-400"></i>
+                </div>
               </div>
-              <h3 class="text-lg font-semibold text-white mb-2">Smart Room</h3>
-              <p class="text-white/70 text-sm">IoT automation & control</p>
+              <div class="mt-auto">
+                <h3 class="text-lg font-bold text-white mb-2">
+                  Staff Operations
+                </h3>
+                <p class="text-white/60 text-sm">Housekeeping & Maintenance</p>
+              </div>
             </div>
           </div>
         </div>
@@ -255,40 +289,46 @@ import { GsapParallaxDirective } from '../../directives/gsap-parallax.directive'
     </section>
 
     <!-- CTA Section -->
-    <section class="py-20 bg-gradient-to-r from-primary/10 to-accent/10">
-      <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+    <section class="py-32 bg-gradient-to-r from-bg via-surface to-bg relative">
+      <div class="absolute inset-0 bg-pattern opacity-5"></div>
+      <div
+        class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 relative z-10"
+      >
         <h2
           gsapReveal="slide-up"
           class="text-4xl lg:text-5xl font-bold text-white mb-6"
         >
-          Ready to go smart?
+          Ready to optimize
+          <span class="gradient-text-primary">operations?</span>
         </h2>
         <p
           gsapReveal="slide-up"
           [delay]="0.2"
-          class="text-xl text-white/70 mb-8"
+          class="text-xl text-white/70 mb-10"
         >
-          Join the future of hospitality with ITECHPRO's Smart Hotels Suite
+          Join the future of hospitality with ITECHPRO's Intelligence Suite
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <div class="flex flex-col sm:flex-row gap-6 justify-center">
           <p-button
             label="Book a Demo"
             icon="pi pi-calendar"
             severity="primary"
-            [rounded]="true"
+            [rounded]="false"
             [outlined]="false"
             routerLink="/contact"
-            class="text-lg px-8 py-4"
+            class="enhanced-primary-button"
+            styleClass="uppercase tracking-widest font-bold px-8 py-4"
           >
           </p-button>
           <p-button
             label="View Case Studies"
             icon="pi pi-briefcase"
             severity="secondary"
-            [rounded]="true"
+            [rounded]="false"
             [outlined]="true"
             routerLink="/projects"
-            class="text-lg px-8 py-4"
+            class="enhanced-secondary-button"
+            styleClass="uppercase tracking-widest font-bold px-8 py-4 bg-transparent border-white/20 text-white hover:text-gold hover:border-gold"
           >
           </p-button>
         </div>
@@ -302,31 +342,20 @@ import { GsapParallaxDirective } from '../../directives/gsap-parallax.directive'
       }
 
       .feature-card {
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        perspective: 1000px;
       }
 
       .feature-card:hover {
         transform: translateY(-8px);
       }
 
-      .feature-card:hover .bg-black\\/20 {
-        background: rgba(0, 0, 0, 0.3) !important;
-        border-color: rgba(0, 224, 255, 0.5) !important;
-        box-shadow: 0 20px 40px rgba(0, 224, 255, 0.1);
+      .box-glow {
+        box-shadow: 0 0 10px var(--color-primary);
       }
 
-      .device-mockup {
-        transition: all 0.3s ease;
-      }
-
-      .device-mockup:hover {
-        transform: translateY(-8px);
-      }
-
-      .device-mockup:hover .bg-black\\/20 {
-        background: rgba(0, 0, 0, 0.3) !important;
-        border-color: rgba(0, 224, 255, 0.5) !important;
-        box-shadow: 0 20px 40px rgba(0, 224, 255, 0.1);
+      .icon-glow {
+        filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.2));
       }
     `,
   ],

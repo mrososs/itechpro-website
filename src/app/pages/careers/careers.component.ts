@@ -37,15 +37,20 @@ interface JobPosition {
   template: `
     <!-- Hero Section -->
     <section
-      class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-bg via-surface to-bg pt-16"
+      class="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-bg pt-16"
     >
       <!-- Background Elements -->
+      <div class="absolute inset-0 bg-pattern opacity-10"></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-transparent via-bg/50 to-bg"
+      ></div>
+
       <div class="absolute inset-0">
         <div
-          class="absolute top-20 left-10 w-72 h-72 bg-blue-primary/10 rounded-full blur-3xl"
+          class="absolute top-20 left-10 w-72 h-72 bg-gold/5 rounded-full blur-3xl"
         ></div>
         <div
-          class="absolute bottom-20 right-10 w-96 h-96 bg-green-accent/10 rounded-full blur-3xl"
+          class="absolute bottom-20 right-10 w-96 h-96 bg-white/5 rounded-full blur-3xl"
         ></div>
       </div>
 
@@ -58,13 +63,13 @@ interface JobPosition {
           class="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight"
         >
           Join Our
-          <span class="text-primary">Innovation</span> Journey
+          <span class="gradient-text-primary">Innovation</span> Journey
         </h1>
 
         <p
           gsapReveal="slide-up"
           [delay]="0.4"
-          class="text-xl sm:text-2xl text-white/80 mb-8 max-w-4xl mx-auto leading-relaxed"
+          class="text-xl sm:text-2xl text-white/70 mb-8 max-w-4xl mx-auto leading-relaxed font-light"
         >
           Be part of a team that's revolutionizing hospitality technology. We're
           looking for passionate individuals who want to make a real impact.
@@ -75,10 +80,11 @@ interface JobPosition {
             label="Browse Open Positions"
             icon="pi pi-briefcase"
             severity="primary"
-            [rounded]="true"
+            [rounded]="false"
             [outlined]="false"
             (onClick)="scrollToSection('positions')"
-            class="text-lg px-8 py-4 "
+            class="enhanced-primary-button"
+            styleClass="text-lg px-8 py-4 uppercase tracking-widest font-bold"
           >
           </p-button>
         </div>
@@ -86,14 +92,15 @@ interface JobPosition {
     </section>
 
     <!-- Full-Time Positions Section -->
-    <section id="positions" class="py-20 bg-surface">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="positions" class="py-20 bg-surface relative">
+      <div class="absolute inset-0 bg-pattern opacity-5"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-16">
           <h2
             gsapReveal="slide-up"
             class="text-4xl lg:text-5xl font-bold text-white mb-6"
           >
-            Full-Time <span class="text-primary">Positions</span>
+            Full-Time <span class="gradient-text-primary">Positions</span>
           </h2>
           <p
             gsapReveal="slide-up"
@@ -110,32 +117,32 @@ interface JobPosition {
             *ngFor="let position of fullTimePositions; let i = index"
             gsapReveal="slide-up"
             [delay]="i * 0.1"
-            class="job-card group"
+            class="job-card group h-full"
           >
             <div
-              class="bg-black/30 backdrop-blur-xl border border-white/10 rounded-3xl p-8 hover:border-primary/50 transition-all duration-500 hover:scale-105 h-full relative overflow-hidden"
+              class="glass-hover bg-surface/30 backdrop-blur-xl border border-white/5 rounded-3xl p-8 hover:border-gold/30 transition-all duration-500 hover:shadow-glow h-full relative overflow-hidden flex flex-col"
             >
               <!-- Shimmer effect -->
               <div
-                class="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
+                class="absolute inset-0 bg-gradient-to-r from-transparent via-gold/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
               ></div>
 
               <!-- Header -->
-              <div class="relative z-10 mb-6">
+              <div class="relative z-10 mb-6 flex-1">
                 <div class="flex items-start justify-between mb-4">
                   <h3
-                    class="text-2xl font-bold text-white group-hover:text-primary transition-colors duration-300"
+                    class="text-2xl font-bold text-white group-hover:text-gold transition-colors duration-300"
                   >
                     {{ position.title }}
                   </h3>
                   <div class="flex flex-col items-end space-y-2">
                     <span
-                      class="px-3 py-1 bg-primary/20 text-primary text-sm rounded-full border border-primary/30"
+                      class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs rounded-full border border-blue-500/20 font-bold uppercase tracking-wider"
                     >
                       {{ position.type }}
                     </span>
                     <span
-                      class="px-3 py-1 bg-accent/20 text-accent text-sm rounded-full border border-accent/30"
+                      class="px-3 py-1 bg-white/10 text-white text-xs rounded-full border border-white/20 font-bold uppercase tracking-wider"
                     >
                       {{ position.department }}
                     </span>
@@ -143,39 +150,41 @@ interface JobPosition {
                 </div>
 
                 <div
-                  class="flex items-center space-x-4 text-white/70 text-sm mb-4"
+                  class="flex items-center space-x-4 text-white/60 text-sm mb-6"
                 >
                   <div class="flex items-center space-x-2">
-                    <i class="pi pi-map-marker text-primary"></i>
+                    <i class="pi pi-map-marker text-blue-400"></i>
                     <span>{{ position.location }}</span>
                   </div>
                   <div class="flex items-center space-x-2">
-                    <i class="pi pi-clock text-primary"></i>
+                    <i class="pi pi-clock text-blue-400"></i>
                     <span>{{ position.experience }}</span>
                   </div>
                   <div
                     *ngIf="position.isRemote"
                     class="flex items-center space-x-2"
                   >
-                    <i class="pi pi-wifi text-primary"></i>
+                    <i class="pi pi-wifi text-green-400"></i>
                     <span>Remote</span>
                   </div>
                 </div>
 
-                <p class="text-white/80 leading-relaxed">
+                <p class="text-white/80 leading-relaxed font-light">
                   {{ position.description }}
                 </p>
               </div>
 
               <!-- Skills -->
               <div class="relative z-10 mb-6">
-                <h4 class="text-lg font-semibold text-white mb-3">
+                <h4
+                  class="text-sm font-bold text-white mb-3 uppercase tracking-wider"
+                >
                   Key Skills
                 </h4>
                 <div class="flex flex-wrap gap-2">
                   <span
                     *ngFor="let skill of position.skills.slice(0, 4)"
-                    class="px-3 py-1 bg-primary/20 text-primary text-xs rounded-full border border-primary/30"
+                    class="px-2 py-1 bg-white/5 text-white/80 text-xs rounded border border-white/10"
                   >
                     {{ skill }}
                   </span>
@@ -183,17 +192,20 @@ interface JobPosition {
               </div>
 
               <!-- Footer -->
-              <div class="relative z-10 flex items-center justify-between">
-                <div class="text-white/60 text-sm">
+              <div
+                class="relative z-10 flex items-center justify-between mt-auto pt-6 border-t border-white/5"
+              >
+                <div class="text-white/40 text-xs">
                   Posted {{ position.postedDate }}
                 </div>
                 <p-button
                   label="Apply Now"
                   icon="pi pi-arrow-right"
                   severity="primary"
-                  [rounded]="true"
+                  [rounded]="false"
                   [outlined]="true"
-                  class=""
+                  class="enhanced-hover-button"
+                  styleClass="text-sm px-4 py-2 hover:bg-blue-600 hover:text-white hover:border-blue-600 border-white/20 text-white"
                 >
                 </p-button>
               </div>
@@ -204,14 +216,17 @@ interface JobPosition {
     </section>
 
     <!-- Internships Section -->
-    <section class="py-20 bg-bg">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-20 bg-bg relative">
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-bg to-surface opacity-50"
+      ></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-16">
           <h2
             gsapReveal="slide-up"
             class="text-4xl lg:text-5xl font-bold text-white mb-6"
           >
-            <span class="text-accent">Internship</span> Opportunities
+            <span class="text-white">Internship</span> Opportunities
           </h2>
           <p
             gsapReveal="slide-up"
@@ -228,65 +243,67 @@ interface JobPosition {
             *ngFor="let internship of internships; let i = index"
             gsapReveal="slide-up"
             [delay]="i * 0.1"
-            class="internship-card group"
+            class="internship-card group h-full"
           >
             <div
-              class="bg-black/30 backdrop-blur-xl border border-white/10 rounded-3xl p-8 hover:border-accent/50 transition-all duration-500 hover:scale-105 h-full relative overflow-hidden"
+              class="glass-hover bg-surface/30 backdrop-blur-xl border border-white/5 rounded-3xl p-8 hover:border-white/30 transition-all duration-500 hover:scale-105 h-full relative overflow-hidden flex flex-col"
             >
               <!-- Shimmer effect -->
               <div
-                class="absolute inset-0 bg-gradient-to-r from-transparent via-accent/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
+                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
               ></div>
 
               <!-- Header -->
               <div class="relative z-10 mb-6">
                 <div class="flex items-start justify-between mb-4">
                   <h3
-                    class="text-2xl font-bold text-white group-hover:text-accent transition-colors duration-300"
+                    class="text-2xl font-bold text-white group-hover:text-white transition-colors duration-300"
                   >
                     {{ internship.title }}
                   </h3>
                   <span
-                    class="px-3 py-1 bg-accent/20 text-accent text-sm rounded-full border border-accent/30"
+                    class="px-3 py-1 bg-white/10 text-white text-xs rounded-full border border-white/20 font-bold uppercase tracking-wider"
                   >
                     {{ internship.type }}
                   </span>
                 </div>
 
                 <div
-                  class="flex items-center space-x-4 text-white/70 text-sm mb-4"
+                  class="flex items-center space-x-4 text-white/60 text-sm mb-4"
                 >
                   <div class="flex items-center space-x-2">
-                    <i class="pi pi-map-marker text-accent"></i>
+                    <i class="pi pi-map-marker text-white"></i>
                     <span>{{ internship.location }}</span>
                   </div>
                   <div class="flex items-center space-x-2">
-                    <i class="pi pi-calendar text-accent"></i>
+                    <i class="pi pi-calendar text-white"></i>
                     <span>{{ internship.experience }}</span>
                   </div>
                   <div
                     *ngIf="internship.isRemote"
                     class="flex items-center space-x-2"
                   >
-                    <i class="pi pi-wifi text-accent"></i>
+                    <i class="pi pi-wifi text-white"></i>
                     <span>Remote</span>
                   </div>
                 </div>
 
-                <p class="text-white/80 leading-relaxed">
+                <p class="text-white/80 leading-relaxed font-light">
                   {{ internship.description }}
                 </p>
               </div>
 
               <!-- Skills -->
               <div class="relative z-10 mb-6">
-                <h4 class="text-lg font-semibold text-white mb-3">
+                <h4
+                  class="text-sm font-bold text-white mb-3 uppercase tracking-wider"
+                >
                   What You'll Learn
                 </h4>
                 <div class="flex flex-wrap gap-2">
                   <span
                     *ngFor="let skill of internship.skills.slice(0, 4)"
-                    class="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full border border-accent/30"
+                    class="px-2 py-1 bg-white/5 text-white/80 text-xs rounded border border-white/10"
                   >
                     {{ skill }}
                   </span>
@@ -295,11 +312,15 @@ interface JobPosition {
 
               <!-- Benefits -->
               <div class="relative z-10 mb-6">
-                <h4 class="text-lg font-semibold text-white mb-3">Benefits</h4>
+                <h4
+                  class="text-sm font-bold text-white mb-3 uppercase tracking-wider"
+                >
+                  Benefits
+                </h4>
                 <div class="flex flex-wrap gap-2">
                   <span
                     *ngFor="let benefit of internship.benefits.slice(0, 3)"
-                    class="px-3 py-1 bg-green-500/20 text-green-400 text-xs rounded-full border border-green-500/30"
+                    class="px-2 py-1 bg-green-500/10 text-green-400 text-xs rounded border border-green-500/20"
                   >
                     {{ benefit }}
                   </span>
@@ -307,17 +328,20 @@ interface JobPosition {
               </div>
 
               <!-- Footer -->
-              <div class="relative z-10 flex items-center justify-between">
-                <div class="text-white/60 text-sm">
+              <div
+                class="relative z-10 flex items-center justify-between mt-auto pt-6 border-t border-white/5"
+              >
+                <div class="text-white/40 text-xs">
                   Posted {{ internship.postedDate }}
                 </div>
                 <p-button
                   label="Apply Now"
                   icon="pi pi-arrow-right"
                   severity="secondary"
-                  [rounded]="true"
+                  [rounded]="false"
                   [outlined]="true"
-                  class=""
+                  class="enhanced-hover-button"
+                  styleClass="text-sm px-4 py-2 hover:bg-white hover:text-black hover:border-white border-white/20 text-white"
                 >
                 </p-button>
               </div>
@@ -328,14 +352,15 @@ interface JobPosition {
     </section>
 
     <!-- Why Work With Us Section -->
-    <section class="py-20 bg-surface">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-20 bg-surface relative overflow-hidden">
+      <div class="absolute inset-0 bg-pattern opacity-5"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-16">
           <h2
             gsapReveal="slide-up"
             class="text-4xl lg:text-5xl font-bold text-white mb-6"
           >
-            Why Work at <span class="text-primary">ITECHPRO</span>?
+            Why Work at <span class="gradient-text-primary">ITECHPRO</span>?
           </h2>
           <p
             gsapReveal="slide-up"
@@ -347,63 +372,75 @@ interface JobPosition {
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div gsapReveal="slide-up" [delay]="0.1" class="benefit-card group">
+          <div
+            gsapReveal="slide-up"
+            [delay]="0.1"
+            class="benefit-card group h-full"
+          >
             <div
-              class="bg-black/20 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 hover:scale-105 h-full text-center"
+              class="glass-hover bg-surface/30 backdrop-blur-md border border-white/5 rounded-2xl p-8 hover:border-gold/30 transition-all duration-300 hover:shadow-glow h-full text-center flex flex-col"
             >
               <div
-                class="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:bg-primary/30 transition-colors duration-300"
+                class="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:bg-blue-500/20 transition-colors duration-300 icon-glow"
               >
-                <i class="pi pi-rocket text-2xl text-primary"></i>
+                <i class="pi pi-rocket text-2xl text-blue-400"></i>
               </div>
               <h3
-                class="text-xl font-semibold text-white mb-4 group-hover:text-primary transition-colors duration-300"
+                class="text-xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors duration-300"
               >
                 Innovation Culture
               </h3>
-              <p class="text-white/70 leading-relaxed">
+              <p class="text-white/70 leading-relaxed text-sm">
                 Work with cutting-edge technologies and be part of projects that
                 shape the future of hospitality.
               </p>
             </div>
           </div>
 
-          <div gsapReveal="slide-up" [delay]="0.2" class="benefit-card group">
+          <div
+            gsapReveal="slide-up"
+            [delay]="0.2"
+            class="benefit-card group h-full"
+          >
             <div
-              class="bg-black/20 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-accent/50 transition-all duration-300 hover:scale-105 h-full text-center"
+              class="glass-hover bg-surface/30 backdrop-blur-md border border-white/5 rounded-2xl p-8 hover:border-white/30 transition-all duration-300 hover:shadow-glow h-full text-center flex flex-col"
             >
               <div
-                class="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:bg-accent/30 transition-colors duration-300"
+                class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:bg-white/20 transition-colors duration-300 icon-glow"
               >
-                <i class="pi pi-users text-2xl text-accent"></i>
+                <i class="pi pi-users text-2xl text-white"></i>
               </div>
               <h3
-                class="text-xl font-semibold text-white mb-4 group-hover:text-accent transition-colors duration-300"
+                class="text-xl font-bold text-white mb-4 group-hover:text-white transition-colors duration-300"
               >
                 Collaborative Team
               </h3>
-              <p class="text-white/70 leading-relaxed">
+              <p class="text-white/70 leading-relaxed text-sm">
                 Join a diverse team of experts who support each other and share
                 knowledge freely.
               </p>
             </div>
           </div>
 
-          <div gsapReveal="slide-up" [delay]="0.3" class="benefit-card group">
+          <div
+            gsapReveal="slide-up"
+            [delay]="0.3"
+            class="benefit-card group h-full"
+          >
             <div
-              class="bg-black/20 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 hover:scale-105 h-full text-center"
+              class="glass-hover bg-surface/30 backdrop-blur-md border border-white/5 rounded-2xl p-8 hover:border-gold/30 transition-all duration-300 hover:shadow-glow h-full text-center flex flex-col"
             >
               <div
-                class="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:bg-primary/30 transition-colors duration-300"
+                class="w-16 h-16 bg-green-500/10 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:bg-green-500/20 transition-colors duration-300 icon-glow"
               >
-                <i class="pi pi-chart-line text-2xl text-primary"></i>
+                <i class="pi pi-chart-line text-2xl text-green-400"></i>
               </div>
               <h3
-                class="text-xl font-semibold text-white mb-4 group-hover:text-primary transition-colors duration-300"
+                class="text-xl font-bold text-white mb-4 group-hover:text-green-400 transition-colors duration-300"
               >
                 Career Growth
               </h3>
-              <p class="text-white/70 leading-relaxed">
+              <p class="text-white/70 leading-relaxed text-sm">
                 Continuous learning opportunities, mentorship programs, and
                 clear career progression paths.
               </p>
@@ -414,41 +451,46 @@ interface JobPosition {
     </section>
 
     <!-- CTA Section -->
-    <section class="py-20 bg-gradient-to-r from-primary/10 to-accent/10">
-      <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+    <section class="py-32 bg-gradient-to-r from-bg via-surface to-bg relative">
+      <div class="absolute inset-0 bg-pattern opacity-5"></div>
+      <div
+        class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 relative z-10"
+      >
         <h2
           gsapReveal="slide-up"
           class="text-4xl lg:text-5xl font-bold text-white mb-6"
         >
-          Ready to Join Our Team?
+          Ready to Join Our <span class="gradient-text-primary">Team?</span>
         </h2>
         <p
           gsapReveal="slide-up"
           [delay]="0.2"
-          class="text-xl text-white/70 mb-8"
+          class="text-xl text-white/70 mb-10"
         >
           Don't see a position that fits? Send us your resume and we'll keep you
           in mind for future opportunities.
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <div class="flex flex-col sm:flex-row gap-6 justify-center">
           <p-button
             label="Send Your Resume"
             icon="pi pi-envelope"
             severity="primary"
-            [rounded]="true"
+            [rounded]="false"
             [outlined]="false"
             routerLink="/contact"
-            class="text-lg px-8 py-4 "
+            class="enhanced-primary-button"
+            styleClass="uppercase tracking-widest font-bold px-8 py-4"
           >
           </p-button>
           <p-button
             label="Contact HR"
             icon="pi pi-comments"
             severity="secondary"
-            [rounded]="true"
+            [rounded]="false"
             [outlined]="true"
             routerLink="/contact"
-            class="text-lg px-8 py-4 "
+            class="enhanced-secondary-button"
+            styleClass="uppercase tracking-widest font-bold px-8 py-4 bg-transparent border-white/20 text-white hover:text-blue-400 hover:border-blue-400"
           >
           </p-button>
         </div>
@@ -463,24 +505,13 @@ interface JobPosition {
 
       .job-card,
       .internship-card {
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        perspective: 1000px;
       }
 
       .job-card:hover,
       .internship-card:hover {
         transform: translateY(-8px);
-      }
-
-      .job-card:hover .bg-black\\/30 {
-        background: rgba(0, 0, 0, 0.4) !important;
-        border-color: rgba(0, 212, 255, 0.5) !important;
-        box-shadow: 0 20px 40px rgba(0, 212, 255, 0.1);
-      }
-
-      .internship-card:hover .bg-black\\/30 {
-        background: rgba(0, 0, 0, 0.4) !important;
-        border-color: rgba(168, 85, 247, 0.5) !important;
-        box-shadow: 0 20px 40px rgba(168, 85, 247, 0.1);
       }
 
       .benefit-card {
@@ -491,10 +522,8 @@ interface JobPosition {
         transform: translateY(-8px);
       }
 
-      .benefit-card:hover .bg-black\\/20 {
-        background: rgba(0, 0, 0, 0.3) !important;
-        border-color: rgba(0, 224, 255, 0.5) !important;
-        box-shadow: 0 20px 40px rgba(0, 224, 255, 0.1);
+      .icon-glow {
+        filter: drop-shadow(0 0 15px rgba(30, 64, 175, 0.4));
       }
     `,
   ],
@@ -542,22 +571,22 @@ export class CareersComponent implements OnInit {
       },
       {
         id: 'ft-2',
-        title: 'Backend & IoT Specialist',
+        title: 'Backend & Systems Specialist',
         type: 'Full-time',
         location: 'Cairo, Egypt',
         department: 'Engineering',
         experience: '4+ years',
-        skills: ['Node.js', 'IoT', 'Cloud', 'PMS', 'Docker'],
+        skills: ['Node.js', 'System Architecture', 'Cloud', 'PMS', 'Docker'],
         description:
-          'Develop backend systems and IoT integrations for smart hotel solutions.',
+          'Develop backend systems and custom integrations for smart hotel solutions.',
         responsibilities: [
-          'Design and implement IoT device integrations',
+          'Design and implement PMS integrations',
           'Develop RESTful APIs',
           'Ensure system scalability and security',
         ],
         requirements: [
           'Strong Node.js experience',
-          'IoT protocol knowledge',
+          'Integration knowledge',
           'Database design skills',
         ],
         benefits: [

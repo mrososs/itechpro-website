@@ -31,19 +31,26 @@ import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
   template: `
     <!-- Hero Section -->
     <section
-      class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-bg via-surface to-bg pt-16"
+      class="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-bg pt-16"
     >
       <!-- Background Elements -->
-      <div class="absolute inset-0">
+      <div class="absolute inset-0 bg-pattern opacity-10"></div>
+
+      <!-- Gradient overlay -->
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-transparent via-bg/50 to-bg"
+      ></div>
+
+      <div class="absolute inset-0 overflow-hidden pointer-events-none">
         <div
-          class="absolute top-20 left-10 w-72 h-72 bg-blue-primary/10 rounded-full blur-3xl animate-pulse"
+          class="absolute top-20 left-10 w-72 h-72 bg-gold/5 rounded-full blur-3xl animate-pulse"
         ></div>
         <div
-          class="absolute bottom-20 right-10 w-96 h-96 bg-green-accent/10 rounded-full blur-3xl animate-pulse"
+          class="absolute bottom-20 right-10 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse"
           style="animation-delay: 1s;"
         ></div>
         <div
-          class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-secondary/10 rounded-full blur-3xl animate-float"
+          class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gold/5 rounded-full blur-3xl"
         ></div>
       </div>
 
@@ -70,14 +77,13 @@ import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
     </section>
 
     <!-- Contact Form & Info Section -->
-    <section class="py-20 bg-surface bg-pattern">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-20 bg-bg relative">
+      <div class="absolute inset-0 bg-pattern opacity-5"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <!-- Contact Form -->
           <div gsapReveal="slide-up" [delay]="0.2">
-            <div
-              class="bg-black/30 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-glow-primary"
-            >
+            <div class="glass-panel rounded-3xl p-8 box-glow">
               <h2 class="text-3xl font-bold text-white mb-6">
                 Send us a Message
               </h2>
@@ -104,7 +110,7 @@ import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
                     id="fullName"
                     formControlName="fullName"
                     placeholder="Enter your full name"
-                    class="w-full"
+                    class="w-full glass-input"
                     [class.ng-invalid]="isFieldInvalid('fullName')"
                   />
                   <p-message
@@ -129,7 +135,7 @@ import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
                     id="email"
                     formControlName="email"
                     placeholder="Enter your email address"
-                    class="w-full"
+                    class="w-full glass-input"
                     [class.ng-invalid]="isFieldInvalid('email')"
                   />
                   <p-message
@@ -155,7 +161,7 @@ import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
                     formControlName="message"
                     placeholder="Tell us about your project or inquiry..."
                     rows="6"
-                    class="w-full"
+                    class="w-full glass-input"
                     [class.ng-invalid]="isFieldInvalid('message')"
                   ></textarea>
                   <p-message
@@ -178,7 +184,7 @@ import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
                     [outlined]="false"
                     [loading]="isSubmitting"
                     [disabled]="contactForm.invalid"
-                    class="w-full text-lg py-4 enhanced-primary-button"
+                    class="w-full text-lg py-4 enhanced-button"
                   >
                   </p-button>
                 </div>
@@ -200,127 +206,146 @@ import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
           <div gsapReveal="slide-up" [delay]="0.4">
             <div class="contact-cards-grid-2x2">
               @for (card of contactCards; track card.id) {
-              <div class="contact-card-2x2" [class]="getCardClasses(card.type)">
-                @if (card.type === 'info') {
-                <h2 class="text-2xl font-bold text-white mb-4">
-                  {{ card.title }}
-                </h2>
-                <p class="text-white/70 mb-6 text-sm">
-                  {{ card.description }}
-                </p>
-                <div class="space-y-4 flex-1">
-                  @for (item of card.content; track item.title) {
-                  <div class="flex items-start space-x-3 group">
-                    <div
-                      class="w-10 h-10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-all duration-300"
-                      [class]="item.iconBg"
-                    >
-                      <i
-                        [class]="item.icon + ' ' + item.iconColor + ' text-lg'"
-                      ></i>
-                    </div>
-                    <div class="flex-1">
-                      <h3 class="text-white font-semibold mb-1 text-sm">
-                        {{ item.title }}
-                      </h3>
-                      @if (item.link) {
-                      <a
-                        [href]="item.link"
-                        [class]="
-                          item.linkColor +
-                          ' transition-colors duration-300 text-sm'
-                        "
-                      >
-                        {{ item.value }}
-                      </a>
-                      } @else {
-                      <p
-                        class="text-white/80 text-sm"
-                        [innerHTML]="item.value"
-                      ></p>
-                      } @if (item.subtitle) {
-                      <p class="text-white/60 text-xs mt-1">
-                        {{ item.subtitle }}
-                      </p>
+                <div
+                  class="contact-card-2x2 glass-panel"
+                  [class]="getCardClasses(card.type)"
+                >
+                  @if (card.type === 'info') {
+                    <h2 class="text-2xl font-bold text-white mb-4">
+                      {{ card.title }}
+                    </h2>
+                    <p class="text-white/70 mb-6 text-sm">
+                      {{ card.description }}
+                    </p>
+                    <div class="space-y-4 flex-1">
+                      @for (item of card.content; track item.title) {
+                        <div
+                          class="flex items-start space-x-3 group cursor-pointer"
+                        >
+                          <div
+                            class="w-10 h-10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-all duration-300"
+                            [class]="item.iconBg"
+                          >
+                            <i
+                              [class]="
+                                item.icon +
+                                ' ' +
+                                item.iconColor +
+                                ' text-lg icon-glow'
+                              "
+                            ></i>
+                          </div>
+                          <div class="flex-1">
+                            <h3
+                              class="text-white font-semibold mb-1 text-sm group-hover:text-gold transition-colors"
+                            >
+                              {{ item.title }}
+                            </h3>
+                            @if (item.link) {
+                              <a
+                                [href]="item.link"
+                                [class]="
+                                  item.linkColor +
+                                  ' transition-colors duration-300 text-sm'
+                                "
+                              >
+                                {{ item.value }}
+                              </a>
+                            } @else {
+                              <p
+                                class="text-white/80 text-sm"
+                                [innerHTML]="item.value"
+                              ></p>
+                            }
+                            @if (item.subtitle) {
+                              <p class="text-white/60 text-xs mt-1">
+                                {{ item.subtitle }}
+                              </p>
+                            }
+                          </div>
+                        </div>
                       }
                     </div>
-                  </div>
-                  }
-                </div>
-                } @else if (card.type === 'response') {
-                <div class="text-center flex-1 flex flex-col justify-center">
-                  <div
-                    class="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center mx-auto mb-3"
-                  >
-                    <i class="pi pi-clock text-white text-xl"></i>
-                  </div>
-                  <h3 class="text-lg font-bold text-white mb-2">
-                    {{ card.title }}
-                  </h3>
-                  <p class="text-white/70 mb-4 text-sm">
-                    {{ card.description }}
-                  </p>
-                  <div
-                    class="flex flex-wrap items-center justify-center gap-2 text-xs text-white/60"
-                  >
-                    @for (feature of card.features; track feature) {
-                    <span class="flex items-center">
-                      <i class="pi pi-check-circle text-green-accent mr-1"></i>
-                      {{ feature }}
-                    </span>
-                    }
-                  </div>
-                </div>
-                } @else if (card.type === 'hours') {
-                <h3
-                  class="text-lg font-semibold text-white mb-4 flex items-center"
-                >
-                  <i class="pi pi-calendar text-blue-primary mr-2"></i>
-                  {{ card.title }}
-                </h3>
-                <div class="space-y-2 text-white/80 flex-1">
-                  @for (hour of card.hours; track hour.day) {
-                  <div class="flex justify-between text-sm">
-                    <span>{{ hour.day }}</span>
-                    <span
-                      [class]="
-                        hour.active ? 'text-blue-primary' : 'text-white/40'
-                      "
-                      >{{ hour.time }}</span
-                    >
-                  </div>
-                  }
-                </div>
-                <p class="text-white/60 text-xs mt-4">
-                  <i class="pi pi-info-circle mr-1"></i>
-                  {{ card.note }}
-                </p>
-                } @else if (card.type === 'support') {
-                <div class="text-center flex-1 flex flex-col justify-center">
-                  <div
-                    class="w-12 h-12 bg-gradient-to-br from-green-accent/20 to-blue-primary/20 rounded-xl flex items-center justify-center mx-auto mb-3"
-                  >
-                    <i class="pi pi-headphones text-green-accent text-xl"></i>
-                  </div>
-                  <h3 class="text-lg font-bold text-white mb-2">
-                    {{ card.title }}
-                  </h3>
-                  <p class="text-white/70 mb-4 text-sm">
-                    {{ card.description }}
-                  </p>
-                  <div class="space-y-1">
-                    @for (feature of card.features; track feature) {
+                  } @else if (card.type === 'response') {
                     <div
-                      class="flex items-center justify-center text-xs text-white/60"
+                      class="text-center flex-1 flex flex-col justify-center"
                     >
-                      <i class="pi pi-shield text-green-accent mr-2"></i>
-                      {{ feature }}
+                      <div
+                        class="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center mx-auto mb-3"
+                      >
+                        <i class="pi pi-clock text-gold text-xl icon-glow"></i>
+                      </div>
+                      <h3 class="text-lg font-bold text-white mb-2">
+                        {{ card.title }}
+                      </h3>
+                      <p class="text-white/70 mb-4 text-sm">
+                        {{ card.description }}
+                      </p>
+                      <div
+                        class="flex flex-wrap items-center justify-center gap-2 text-xs text-white/60"
+                      >
+                        @for (feature of card.features; track feature) {
+                          <span class="flex items-center">
+                            <i class="pi pi-check-circle text-gold mr-1"></i>
+                            {{ feature }}
+                          </span>
+                        }
+                      </div>
                     </div>
-                    }
-                  </div>
+                  } @else if (card.type === 'hours') {
+                    <h3
+                      class="text-lg font-semibold text-white mb-4 flex items-center"
+                    >
+                      <i class="pi pi-calendar text-gold mr-2 icon-glow"></i>
+                      {{ card.title }}
+                    </h3>
+                    <div class="space-y-2 text-white/80 flex-1">
+                      @for (hour of card.hours; track hour.day) {
+                        <div class="flex justify-between text-sm">
+                          <span>{{ hour.day }}</span>
+                          <span
+                            [class]="
+                              hour.active ? 'text-gold' : 'text-white/40'
+                            "
+                            >{{ hour.time }}</span
+                          >
+                        </div>
+                      }
+                    </div>
+                    <p class="text-white/60 text-xs mt-4">
+                      <i class="pi pi-info-circle mr-1"></i>
+                      {{ card.note }}
+                    </p>
+                  } @else if (card.type === 'support') {
+                    <div
+                      class="text-center flex-1 flex flex-col justify-center"
+                    >
+                      <div
+                        class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mx-auto mb-3"
+                      >
+                        <i
+                          class="pi pi-headphones text-white text-xl icon-glow"
+                        ></i>
+                      </div>
+                      <h3 class="text-lg font-bold text-white mb-2">
+                        {{ card.title }}
+                      </h3>
+                      <p class="text-white/70 mb-4 text-sm">
+                        {{ card.description }}
+                      </p>
+                      <div class="space-y-1">
+                        @for (feature of card.features; track feature) {
+                          <div
+                            class="flex items-center justify-center text-xs text-white/60"
+                          >
+                            <i class="pi pi-shield text-gold mr-2"></i>
+                            {{ feature }}
+                          </div>
+                        }
+                      </div>
+                    </div>
+                  }
                 </div>
-                }
-              </div>
               }
             </div>
           </div>
@@ -329,10 +354,15 @@ import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
     </section>
 
     <!-- CTA Section -->
-    <section
-      class="py-20 bg-gradient-to-r from-blue-primary/10 to-green-accent/10"
-    >
-      <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+    <section class="py-20 bg-bg relative overflow-hidden">
+      <div class="absolute inset-0 bg-pattern opacity-5"></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-bg"
+      ></div>
+
+      <div
+        class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 relative z-10"
+      >
         <h2
           gsapReveal="slide-up"
           class="text-4xl lg:text-5xl font-bold text-white mb-6"
@@ -354,7 +384,7 @@ import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
             severity="primary"
             [rounded]="true"
             [outlined]="false"
-            class="text-lg px-8 py-4 enhanced-primary-button"
+            class="text-lg px-8 py-4 enhanced-button"
           >
           </p-button>
           <p-button
@@ -364,7 +394,7 @@ import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
             [rounded]="true"
             [outlined]="true"
             routerLink="/projects"
-            class="text-lg px-8 py-4 enhanced-secondary-button"
+            class="text-lg px-8 py-4 enhanced-button-secondary"
           >
           </p-button>
         </div>
@@ -381,10 +411,9 @@ import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
         position: relative;
       }
 
-      /* PrimeNG Input Styling */
-      ::ng-deep .p-inputtext,
-      ::ng-deep .p-inputtextarea {
-        background: rgba(255, 255, 255, 0.05) !important;
+      /* Glass Input (Reuse from other components) */
+      .glass-input {
+        background: rgba(255, 255, 255, 0.03) !important;
         border: 1px solid rgba(255, 255, 255, 0.1) !important;
         color: white !important;
         border-radius: 1rem !important;
@@ -392,56 +421,10 @@ import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
         transition: all 0.3s ease !important;
       }
 
-      ::ng-deep .p-inputtext:focus,
-      ::ng-deep .p-inputtextarea:focus {
+      :host ::ng-deep .glass-input:focus {
         border-color: var(--color-primary) !important;
-        box-shadow: 0 0 0 3px rgba(0, 152, 238, 0.2) !important;
-        background: rgba(255, 255, 255, 0.08) !important;
-      }
-
-      ::ng-deep .p-inputtext::placeholder,
-      ::ng-deep .p-inputtextarea::placeholder {
-        color: rgba(255, 255, 255, 0.5) !important;
-      }
-
-      ::ng-deep .p-inputtext.ng-invalid.ng-touched,
-      ::ng-deep .p-inputtextarea.ng-invalid.ng-touched {
-        border-color: #ef4444 !important;
-        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
-      }
-
-      /* PrimeNG Button Styling */
-      ::ng-deep .p-button {
-        border-radius: 1rem !important;
-        font-weight: 600 !important;
-        transition: all 0.3s ease !important;
-        position: relative;
-        overflow: hidden;
-      }
-
-      ::ng-deep .p-button::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(255, 255, 255, 0.2),
-          transparent
-        );
-        transition: left 0.5s;
-      }
-
-      ::ng-deep .p-button:hover::before {
-        left: 100%;
-      }
-
-      ::ng-deep .p-button:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 8px 25px var(--color-shadow-primary) !important;
+        box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2) !important;
+        background: rgba(255, 255, 255, 0.05) !important;
       }
 
       /* PrimeNG Message Styling */
@@ -463,32 +446,42 @@ import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
       }
 
       /* Enhanced button styles */
-      .enhanced-primary-button {
-        box-shadow: 0 4px 15px rgba(0, 152, 238, 0.3),
-          0 8px 25px rgba(0, 152, 238, 0.2);
-        transition: all 0.3s ease;
+      :host ::ng-deep .enhanced-button .p-button {
+        background: linear-gradient(
+          135deg,
+          var(--color-primary),
+          #b8860b
+        ) !important;
+        border: none !important;
+        color: white !important;
+        padding: 1rem 2rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.5px !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
       }
 
-      .enhanced-primary-button:hover {
-        box-shadow: 0 8px 25px rgba(0, 152, 238, 0.4),
-          0 12px 35px rgba(0, 152, 238, 0.3);
+      :host ::ng-deep .enhanced-button .p-button:hover {
         transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
       }
 
-      .enhanced-secondary-button {
-        box-shadow: 0 4px 15px rgba(0, 240, 66, 0.3),
-          0 8px 25px rgba(0, 240, 66, 0.2);
-        transition: all 0.3s ease;
+      :host ::ng-deep .enhanced-button-secondary .p-button {
+        background: transparent !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        color: white !important;
+        padding: 1rem 2rem !important;
+        transition: all 0.3s ease !important;
       }
 
-      .enhanced-secondary-button:hover {
-        box-shadow: 0 8px 25px rgba(0, 240, 66, 0.4),
-          0 12px 35px rgba(0, 240, 66, 0.3);
-        transform: translateY(-2px);
+      :host ::ng-deep .enhanced-button-secondary .p-button:hover {
+        border-color: var(--color-primary) !important;
+        color: var(--color-primary) !important;
+        background: rgba(212, 175, 55, 0.05) !important;
       }
 
       /* Hover effects for contact info cards */
-      .group:hover .w-12 {
+      .group:hover .w-10 {
         transform: scale(1.1);
       }
 
@@ -511,8 +504,27 @@ import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
       }
 
       .contact-card-2x2:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        transform: translateY(-5px);
+        box-shadow:
+          0 10px 30px rgba(0, 0, 0, 0.3),
+          0 0 1px rgba(212, 175, 55, 0.3);
+        border-color: rgba(212, 175, 55, 0.3) !important;
+      }
+
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .box-glow {
+        box-shadow:
+          0 0 20px rgba(0, 0, 0, 0.2),
+          0 0 1px rgba(212, 175, 55, 0.2);
+      }
+
+      .icon-glow {
+        filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.3));
       }
 
       /* Ensure equal height distribution for 2x2 grid */
@@ -565,28 +577,28 @@ export class ContactComponent implements OnInit {
       content: [
         {
           icon: 'pi pi-envelope',
-          iconBg: 'bg-blue-primary/20',
-          iconColor: 'text-blue-primary',
+          iconBg: 'bg-gold/10',
+          iconColor: 'text-gold',
           title: 'Email',
-          value: 'infoitechpro-eg.com',
+          value: 'info@itechpro-eg.com',
           link: 'mailto:info@itechpro-eg.com',
-          linkColor: 'text-blue-primary hover:text-blue-secondary',
+          linkColor: 'text-gold hover:text-white',
           subtitle: "We'll respond within 24 hours",
         },
         {
           icon: 'pi pi-phone',
-          iconBg: 'bg-green-accent/20',
-          iconColor: 'text-green-accent',
+          iconBg: 'bg-white/10',
+          iconColor: 'text-white',
           title: 'Phone',
           value: '(+20) 100 259 1589',
           link: 'tel:+201002591589',
-          linkColor: 'text-green-accent hover:text-green-600',
+          linkColor: 'text-white hover:text-gold',
           subtitle: 'Mon-Fri 9AM-6PM (GMT+2)',
         },
         {
           icon: 'pi pi-map-marker',
-          iconBg: 'bg-blue-secondary/20',
-          iconColor: 'text-blue-secondary',
+          iconBg: 'bg-gold/10',
+          iconColor: 'text-gold',
           title: 'Address',
           value: '43 Studio-Masr, Zahret El-Maryotia,<br />El-Haram, GIZA',
           subtitle: 'Egypt',
@@ -657,19 +669,19 @@ export class ContactComponent implements OnInit {
   }
 
   getCardClasses(type: string): string {
-    const baseClasses = 'backdrop-blur-xl border rounded-2xl p-6 flex flex-col';
+    const baseClasses = 'p-6 flex flex-col';
 
     switch (type) {
       case 'info':
-        return `${baseClasses} bg-black/30 border-white/10 shadow-glow-secondary`;
+        return `${baseClasses}`; // Default glass style applied via template
       case 'response':
-        return `${baseClasses} bg-gradient-to-br from-blue-primary/10 to-green-accent/10 border-blue-primary/20`;
+        return `${baseClasses}`;
       case 'hours':
-        return `${baseClasses} bg-black/20 border-white/10`;
+        return `${baseClasses}`;
       case 'support':
-        return `${baseClasses} bg-gradient-to-br from-green-accent/10 to-blue-primary/10 border-green-accent/20`;
+        return `${baseClasses}`;
       default:
-        return `${baseClasses} bg-black/30 border-white/10`;
+        return `${baseClasses}`;
     }
   }
 
